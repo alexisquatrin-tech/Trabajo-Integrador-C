@@ -23,7 +23,7 @@ El integrante restante completará sus datos. Las cuatro tareas distintas de c/d
 | Integrante 1 — nombre pendiente | Reingreso y frenado: incisos a/b | `reingreso.c` (por crear), pruebas y explicación física |
 | **Quatrin Oliver Alexis Javier (Alexis)** | Amerizaje y ángulo: incisos c/d | `amerizaje.c`, pruebas y explicación física |
 | Integrante 3 — nombre pendiente | Flujo, estados y eventos | `simulador.c`, contratos en `simulador.h` |
-| Integrante 4 — nombre pendiente | Entradas, validaciones y menú | `validaciones.c/.h` y `main.c` |
+| Ignacio Pabon | Entradas, validaciones y menú | `validaciones.c/.h` y `main.c` |
 | Integrante 5 — nombre pendiente | Arreglo de historial, reportes y compilación | `reportes.c/.h` (por crear), Makefile |
 
 Cada integrante programa, prueba y documenta su aporte. README, revisión, Git, video y preparación del coloquio son responsabilidades compartidas.
