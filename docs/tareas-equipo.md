@@ -1,6 +1,6 @@
 # Plan de trabajo del grupo
 
-Estado: base compartida. Integrantes confirmados: Quatrin Oliver Alexis Javier (legajo 27880), responsable de c/d, Navarro Ezequiel Leandro (legajo 31372) y Julian Nicolas Alvarez Carruega (legajo 29342), ambos con tarea pendiente de asignar. Faltan los datos de dos integrantes y la comisión. Los números de las secciones identifican tareas; no asignan personas automáticamente.
+Estado: base compartida. Integrantes confirmados: Quatrin Oliver Alexis Javier (legajo 27880), responsable de c/d, Navarro Ezequiel Leandro (legajo 31372), Julian Nicolas Alvarez Carruega (legajo 29342) y Juan Ignacio Pabon (legajo 28583), estos tres con tarea pendiente de asignar. Faltan los datos de un integrante y la comisión. Los números de las secciones identifican tareas; no asignan personas automáticamente.
 
 ## 1. Reingreso y frenado — integrante por asignar
 

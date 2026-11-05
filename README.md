@@ -13,10 +13,10 @@ Comisión: **pendiente de completar**.
 | Quatrin Oliver Alexis Javier | 27880 | Amerizaje y ángulo: incisos c/d |
 | Navarro Ezequiel Leandro | 31372 | Pendiente de asignar |
 | Julian Nicolas Alvarez Carruega | 29342 | Pendiente de asignar |
-| Nombre pendiente | Pendiente | Pendiente de asignar |
+| Juan Ignacio Pabon | 28583 | Pendiente de asignar |
 | Nombre pendiente | Pendiente | Pendiente de asignar |
 
-Los dos integrantes restantes completarán sus datos. Las cuatro tareas distintas de c/d todavía no tienen responsable confirmado; los números siguientes identifican partes del trabajo, no personas asignadas.
+El integrante restante completará sus datos. Las cuatro tareas distintas de c/d todavía no tienen responsable confirmado; los números siguientes identifican partes del trabajo, no personas asignadas.
 
 | Responsable | Parte | Archivo principal / entrega |
 | --- | --- | --- |
