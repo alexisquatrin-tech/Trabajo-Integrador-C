@@ -6,12 +6,22 @@ Trabajo Final Integrador de **Algoritmos y Estructuras de Datos**, Ingeniería e
 
 ## Equipo y comisión
 
-Comisión: **pendiente de completar**. Completar los nombres antes de entregar; no usar estos rótulos como integrantes ficticios.
+Comisión: **pendiente de completar**.
+
+| Integrante | Legajo | Responsabilidad confirmada |
+| --- | --- | --- |
+| Quatrin Oliver Alexis Javier | 27880 | Amerizaje y ángulo: incisos c/d |
+| Navarro Ezequiel Leandro | 31372 | Pendiente de asignar |
+| Nombre pendiente | Pendiente | Pendiente de asignar |
+| Nombre pendiente | Pendiente | Pendiente de asignar |
+| Nombre pendiente | Pendiente | Pendiente de asignar |
+
+Los tres integrantes restantes completarán sus datos. Las cuatro tareas distintas de c/d todavía no tienen responsable confirmado; los números siguientes identifican partes del trabajo, no personas asignadas.
 
 | Responsable | Parte | Archivo principal / entrega |
 | --- | --- | --- |
 | Integrante 1 — nombre pendiente | Reingreso y frenado: incisos a/b | `reingreso.c` (por crear), pruebas y explicación física |
-| **Alexis** | Amerizaje y ángulo: incisos c/d | `amerizaje.c`, pruebas y explicación física |
+| **Quatrin Oliver Alexis Javier (Alexis)** | Amerizaje y ángulo: incisos c/d | `amerizaje.c`, pruebas y explicación física |
 | Integrante 3 — nombre pendiente | Flujo, estados y eventos | `simulador.c`, contratos en `simulador.h` |
 | Integrante 4 — nombre pendiente | Entradas, validaciones y menú | `validaciones.c/.h` y `main.c` |
 | Integrante 5 — nombre pendiente | Arreglo de historial, reportes y compilación | `reportes.c/.h` (por crear), Makefile |

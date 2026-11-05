@@ -1,6 +1,6 @@
 # Plan de trabajo del grupo
 
-Estado: base compartida; integrantes 1, 3, 4 y 5 y comisión pendientes de completar. Alexis conserva c/d.
+Estado: base compartida. Integrantes confirmados: Quatrin Oliver Alexis Javier (legajo 27880), responsable de c/d, y Navarro Ezequiel Leandro (legajo 31372), con tarea pendiente de asignar. Faltan los datos de tres integrantes y la comisión. Los números de las secciones identifican tareas; no asignan personas automáticamente.
 
 ## 1. Reingreso y frenado — integrante por asignar
 
