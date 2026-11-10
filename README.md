@@ -76,6 +76,73 @@ make run
 
 Ajustar la ruta a la carpeta real. La terminal UCRT64 evita depender de una configuración previa de PowerShell o VS Code. Las instrucciones Windows están documentadas; la validación ejecutada en este entorno fue en Linux. Para `make check`, instalar además Python 3 o usar un Python ya disponible.
 
+### Compilar y realizar pruebas con VS Code en Windows
+
+VS Code es el editor; GCC compila y Make ejecuta las tareas del proyecto. Instalar [VS Code](https://code.visualstudio.com/) y MSYS2 como se indica arriba. La extensión **C/C++ de Microsoft** ayuda con edición y autocompletado, pero no instala GCC ni Make.
+
+**1. Preparar las herramientas.** Desde **MSYS2 UCRT64**, después de actualizar MSYS2, instalar:
+
+```sh
+pacman -S --needed mingw-w64-ucrt-x86_64-gcc make mingw-w64-ucrt-x86_64-python
+```
+
+Python es necesario para las pruebas del menú. No hace falta instalar bibliotecas de Python con pip.
+
+**2. Abrir la carpeta completa.** En VS Code elegir **Archivo → Abrir carpeta** y seleccionar la carpeta que contiene `Makefile`, `main.c` y `README.md`. Si se descargó un ZIP, extraerlo antes; el nombre habitual de esa carpeta es `Trabajo-Integrador-C-main`.
+
+**3. Configurar la terminal UCRT64 dentro de VS Code.** Abrir la paleta con `Ctrl+Shift+P`, buscar **Preferences: Open User Settings (JSON)** y agregar este perfil a la configuración de usuario. Conservar los ajustes existentes; si ya existe `terminal.integrated.profiles.windows`, agregar la entrada dentro de ese objeto, sin duplicar la propiedad.
+
+```json
+{
+  "terminal.integrated.profiles.windows": {
+    "MSYS2 UCRT64": {
+      "path": "C:\\msys64\\usr\\bin\\bash.exe",
+      "args": ["--login", "-i"],
+      "env": {
+        "MSYSTEM": "UCRT64",
+        "CHERE_INVOKING": "1"
+      }
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "MSYS2 UCRT64"
+}
+```
+
+El ejemplo supone MSYS2 instalado en `C:\msys64`; ajustar `path` si se instaló en otra ubicación. `MSYSTEM` activa las herramientas UCRT64 y `CHERE_INVOKING` conserva el directorio desde el que se abre la terminal.
+
+**4. Crear una terminal nueva.** Cerrar la terminal anterior y elegir **Terminal → Nueva terminal**. Comprobar las herramientas y la carpeta actual:
+
+```sh
+pwd
+ls Makefile
+gcc --version
+make --version
+python --version
+```
+
+Si `ls Makefile` no encuentra el archivo, entrar a la carpeta real del proyecto, por ejemplo:
+
+```sh
+cd "/c/Users/TU_USUARIO/Downloads/Trabajo-Integrador-C-main"
+```
+
+**5. Ejecutar desde esa terminal.** Usar estos comandos para compilar todos los módulos necesarios, con el Makefile del equipo:
+
+```sh
+make run                  # Menú interactivo: 1 demo, 2 estado, 0 salir
+make demo                 # Demostración directa con los datos del enunciado
+make test                 # Pruebas C del módulo de Alexis
+make check PYTHON=python  # Pruebas C y pruebas automáticas del menú
+```
+
+Resultados esperados en la base actual: la demo muestra **323786.67 N** y **3.1769**; `make test` informa **55 comprobaciones correctas y 0 fallidas**; las pruebas del menú informan **7 pruebas y OK**. Las cantidades pueden cambiar cuando el equipo amplíe las pruebas. Registrar siempre la salida real, no copiar estos resultados como si se hubieran ejecutado personalmente.
+
+Para probar manualmente las validaciones del menú, ejecutar `make run`, ingresar `abc`, una línea vacía y `9`: debe informar el error y volver a pedir la opción. Luego ingresar `1` para ejecutar la demo y `0` para salir. Los datos físicos de la demo siguen siendo fijos; esta prueba no valida todavía su ingreso personalizado.
+
+Si una herramienta aparece como `command not found`, verificar que se abrió una terminal **MSYS2 UCRT64** nueva y que la instalación del paso 1 terminó. Si cambian las herramientas de compilación, ejecutar `make clean` antes de recompilar.
+
+Estas instrucciones de VS Code/Windows están documentadas, pero no se ejecutaron en una máquina Windows desde este entorno. Las comprobaciones previas del proyecto se realizaron en Linux.
+
 ### Funcionamiento actual
 
 1. Elegir `1` para ejecutar los datos fijos de la consigna y ver cinco clasificaciones de ángulo.
