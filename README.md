@@ -126,7 +126,6 @@ Herramienta: ChatGPT/Codex. Registro del 3 de noviembre de 2026.
 | --- | --- |
 | «Somos un grupo de 5 personas [...] decime como podemos dividirnos el trabajo [...] Nos toco el escenario 4» | Lectura de la consigna y propuesta de distribución de responsabilidades. |
 | «armame un doc para pasar al grupo de whatsapp, con la division de partes» | Generación de un documento de organización. |
-| «elegi la parte mas accesible para que la realicemos, pone alexis en mi parte» | Asignación propuesta de los incisos c y d a Alexis. |
 | «arranquemos con mi parte, teniendo en cuenta todos los requerimientos del trabajo integrador» | Generación del módulo C de amerizaje y ángulo, demostración, pruebas y documentación. |
 
 Validación realizada por la herramienta: compilación C17 con advertencias tratadas como errores, ejecución de la demo y 55 comprobaciones automáticas aprobadas. Se incluyó el trabajo del peso para distinguir fuerza del agua de fuerza neta; se documentaron los supuestos físicos y los límites del modelo. Se separaron las funciones de cálculo de la entrada/salida para integrarlas con el resto del equipo.
