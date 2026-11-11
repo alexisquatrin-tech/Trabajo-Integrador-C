@@ -15,9 +15,9 @@
 // FUNCIONES AUXILIARES
 
 // Elimina los espacios al final de una cadena.
-static void quitarEspaciosFinales(char *cadena)
+static void quitar_espacios_finales(char *cadena)
 {
-    int longitud = strlen(cadena);
+    size_t longitud = strlen(cadena);
 
     while (longitud > 0 &&
            isspace((unsigned char)cadena[longitud - 1]))
@@ -29,7 +29,7 @@ static void quitarEspaciosFinales(char *cadena)
 
 
 // Lee una linea completa desde teclado.
-static int leerLinea(char *buffer, int tamanio)
+static int leer_linea(char *buffer, int tamanio)
 {
     int caracter;
 
@@ -48,14 +48,14 @@ static int leerLinea(char *buffer, int tamanio)
         return -1;
     }
 
-    quitarEspaciosFinales(buffer);
+    quitar_espacios_finales(buffer);
 
     return 1;
 }
 
 
 // Verifica si la cadena esta vacia.
-static int cadenaVacia(const char *cadena)
+static int cadena_vacia(const char *cadena)
 {
     while (*cadena != '\0')
     {
@@ -73,9 +73,8 @@ static int cadenaVacia(const char *cadena)
 
 // VALIDACION DE NUMEROS ENTEROS
 
-
-int leerEntero(const char *mensaje, int *valor,
-               int minimo, int maximo)
+int leer_entero(const char *mensaje, int minimo,
+                int maximo, int *valor)
 {
     char buffer[TAM_BUFFER];
     char *fin;
@@ -92,11 +91,10 @@ int leerEntero(const char *mensaje, int *valor,
     {
         printf("%s", mensaje);
 
-        estado = leerLinea(buffer, TAM_BUFFER);
+        estado = leer_linea(buffer, TAM_BUFFER);
 
         if (estado == 0)
         {
-            printf("\nFin de la entrada.\n");
             return 0;
         }
 
@@ -106,7 +104,7 @@ int leerEntero(const char *mensaje, int *valor,
             continue;
         }
 
-        if (cadenaVacia(buffer))
+        if (cadena_vacia(buffer))
         {
             printf("Error: no puede dejar el campo vacio.\n");
             continue;
@@ -145,15 +143,16 @@ int leerEntero(const char *mensaje, int *valor,
 // VALIDACION DE NUMEROS REALES
 
 // Acepta numeros dentro de un rango inclusivo.
-int leerReal(const char *mensaje, double *valor,
-             double minimo, double maximo)
+int leer_real(const char *mensaje, double minimo,
+              double maximo, double *valor)
 {
     char buffer[TAM_BUFFER];
     char *fin;
     double numero;
     int estado;
 
-    if (valor == NULL || minimo > maximo)
+    if (valor == NULL || minimo > maximo ||
+        !isfinite(minimo) || !isfinite(maximo))
     {
         printf("Error interno en la validacion.\n");
         return 0;
@@ -163,11 +162,10 @@ int leerReal(const char *mensaje, double *valor,
     {
         printf("%s", mensaje);
 
-        estado = leerLinea(buffer, TAM_BUFFER);
+        estado = leer_linea(buffer, TAM_BUFFER);
 
         if (estado == 0)
         {
-            printf("\nFin de la entrada.\n");
             return 0;
         }
 
@@ -177,7 +175,7 @@ int leerReal(const char *mensaje, double *valor,
             continue;
         }
 
-        if (cadenaVacia(buffer))
+        if (cadena_vacia(buffer))
         {
             printf("Error: no puede dejar el campo vacio.\n");
             continue;
@@ -212,10 +210,11 @@ int leerReal(const char *mensaje, double *valor,
 }
 
 
-// VALIDACION DE NUMEROS ESTRICTAMENTE POSITIVOS
+// VALIDACION DE NUMEROS POSITIVOS
 
-// Acepta cualquier numero mayor que cero.
-int leerRealPositivo(const char *mensaje, double *valor)
+
+// Acepta cualquier numero estrictamente mayor que cero.
+int leer_real_positivo(const char *mensaje, double *valor)
 {
     char buffer[TAM_BUFFER];
     char *fin;
@@ -232,11 +231,10 @@ int leerRealPositivo(const char *mensaje, double *valor)
     {
         printf("%s", mensaje);
 
-        estado = leerLinea(buffer, TAM_BUFFER);
+        estado = leer_linea(buffer, TAM_BUFFER);
 
         if (estado == 0)
         {
-            printf("\nFin de la entrada.\n");
             return 0;
         }
 
@@ -246,7 +244,7 @@ int leerRealPositivo(const char *mensaje, double *valor)
             continue;
         }
 
-        if (cadenaVacia(buffer))
+        if (cadena_vacia(buffer))
         {
             printf("Error: no puede dejar el campo vacio.\n");
             continue;
@@ -267,7 +265,7 @@ int leerRealPositivo(const char *mensaje, double *valor)
             continue;
         }
 
-        if (numero <= 0)
+        if (numero <= 0.0)
         {
             printf("Error: el valor debe ser mayor que cero.\n");
             continue;
