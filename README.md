@@ -14,9 +14,9 @@ Comisión: **pendiente de completar**.
 | Navarro Ezequiel Leandro | 31372 | Parte 1: reingreso y frenado (a/b) |
 | Julian Nicolas Alvarez Carruega | 29342 | Parte 3: flujo, estados y eventos |
 | Juan Ignacio Pabon | 28583 | Parte 4: entradas, validaciones y menú |
-| Nombre pendiente | Pendiente | Pendiente de asignar |
+| Alex — nombre completo pendiente | Pendiente | Diseño de interfaz y mensajes de consola |
 
-Faltan los datos del quinto integrante y la comisión. Se indicó a **Alex** para la interfaz; falta confirmar su identidad y el alcance respecto del menú de la parte 4. La parte 5 continúa pendiente de asignar.
+**Alex es un integrante distinto de Alexis.** Por ahora se ocupa del diseño visual y los mensajes de consola; Ignacio mantiene el menú y las validaciones. Faltan el nombre completo y legajo de Alex y la comisión. La parte 5 continúa pendiente de asignar.
 
 | Responsable | Parte | Archivo principal / entrega |
 | --- | --- | --- |
@@ -24,7 +24,8 @@ Faltan los datos del quinto integrante y la comisión. Se indicó a **Alex** par
 | **Quatrin Oliver Alexis Javier (Alexis)** | Amerizaje y ángulo: incisos c/d | `amerizaje.c`, pruebas y explicación física |
 | Julian Nicolas Alvarez Carruega (Nico) | Flujo, estados y eventos | `simulador.c`, contratos en `simulador.h` |
 | Juan Ignacio Pabon | Entradas, validaciones y menú | `validaciones.c/.h` y `main.c` |
-| Integrante 5 — nombre pendiente | Arreglo de historial, reportes y compilación | `reportes.c/.h` (por crear), Makefile |
+| Responsable pendiente | Arreglo de historial, reportes y compilación | `reportes.c/.h` (por crear), Makefile |
+| Alex | Diseño de interfaz y mensajes de consola | Coordinar presentación con Ignacio y Nico |
 
 Cada integrante programa, prueba y documenta su aporte. README, revisión, Git, video y preparación del coloquio son responsabilidades compartidas.
 

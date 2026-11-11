@@ -1,6 +1,6 @@
 # Plan de trabajo del grupo
 
-Estado: base compartida. Responsabilidades confirmadas: Ezequiel (Navarro Ezequiel Leandro, legajo 31372), parte 1; Alexis (Quatrin Oliver Alexis Javier, legajo 27880), parte 2; Nico (Julian Nicolas Alvarez Carruega, legajo 29342), parte 3; Ignacio (Juan Ignacio Pabon, legajo 28583), parte 4. Alex fue indicado para interfaz: identidad y alcance pendientes de confirmar. La parte 5 sigue sin responsable confirmado. Faltan los datos del quinto integrante y la comisión.
+Estado: base compartida. Responsabilidades confirmadas: Ezequiel (Navarro Ezequiel Leandro, legajo 31372), parte 1; Alexis (Quatrin Oliver Alexis Javier, legajo 27880), parte 2; Nico (Julian Nicolas Alvarez Carruega, legajo 29342), parte 3; Ignacio (Juan Ignacio Pabon, legajo 28583), parte 4. Alex es el quinto integrante, distinto de Alexis, y por ahora se ocupa del diseño de interfaz y los mensajes de consola; Ignacio conserva el menú y las validaciones. La parte 5 sigue sin responsable confirmado. Faltan el nombre completo y legajo de Alex y la comisión.
 
 ## 1. Reingreso y frenado — Ezequiel
 
@@ -57,6 +57,18 @@ Crear `reportes.c/.h` y extender el Makefile existente, coordinando contratos.
 - Probar vacío, lleno, varias simulaciones y compilación desde un clon limpio.
 
 Terminado cuando los resultados se almacenan, recuperan y muestran correctamente dentro del programa completo.
+
+## Interfaz y mensajes de consola — Alex
+
+Alex es un integrante distinto de Alexis. Esta distribución es provisional: Alex trabaja en la presentación, e Ignacio en la navegación y la lectura/validación.
+
+- Diseñar encabezados, disposición de resultados, etiquetas con unidades y mensajes consistentes de consola.
+- Coordinar con Ignacio la presentación del menú y de los errores sin duplicar su lógica ni sus funciones de lectura.
+- Coordinar con Nico la presentación de las etapas del simulador.
+- Probar legibilidad en terminal y evitar depender de comandos exclusivos de un sistema operativo.
+- Acordar los archivos y funciones de presentación antes de modificar módulos compartidos.
+
+Esta tarea no asigna automáticamente a Alex la parte 5: historial, reportes y compilación siguen pendientes de responsable.
 
 ## Acuerdos comunes y orden
 
