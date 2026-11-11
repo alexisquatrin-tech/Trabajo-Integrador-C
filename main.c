@@ -12,7 +12,7 @@ int main(void)
         puts("\n1. Demostracion de amerizaje y angulo (datos de la consigna)");
         puts("2. Consultar estado del desarrollo");
         puts("0. Salir");
-        if (!leerentero("Opcion: ", 0, 2, &opcion)) {
+        if (!leerEntero("Opcion: ", 0, 2, &opcion)) {
             if (ferror(stdin)) {
                 fputs("Error al leer la entrada.\n", stderr);
                 return EXIT_FAILURE;
