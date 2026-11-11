@@ -5,22 +5,16 @@
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
-#include <float.h>
 #include <math.h>
+
+#include "validaciones.h"
 
 #define TAM_BUFFER 128
 
 
-int leerEntero(const char *mensaje, int *valor, int minimo, int maximo);
-
-int leerReal(const char *mensaje, double *valor,
-             double minimo, double maximo);
-
-int leerRealPositivo(const char *mensaje, double *valor);
-
-
-
+// ============================================
 // FUNCIONES AUXILIARES
+// ============================================
 
 // Elimina los espacios al final de una cadena.
 static void quitarEspaciosFinales(char *cadena)
@@ -79,7 +73,9 @@ static int cadenaVacia(const char *cadena)
 }
 
 
+// ============================================
 // VALIDACION DE NUMEROS ENTEROS
+// ============================================
 
 int leerEntero(const char *mensaje, int *valor,
                int minimo, int maximo)
@@ -149,8 +145,9 @@ int leerEntero(const char *mensaje, int *valor,
 }
 
 
-
+// ============================================
 // VALIDACION DE NUMEROS REALES
+// ============================================
 
 // Acepta numeros dentro de un rango inclusivo.
 int leerReal(const char *mensaje, double *valor,
@@ -220,8 +217,9 @@ int leerReal(const char *mensaje, double *valor,
 }
 
 
-
+// ============================================
 // VALIDACION DE NUMEROS ESTRICTAMENTE POSITIVOS
+// ============================================
 
 // Acepta cualquier numero mayor que cero.
 int leerRealPositivo(const char *mensaje, double *valor)
@@ -286,55 +284,4 @@ int leerRealPositivo(const char *mensaje, double *valor)
 
         return 1;
     }
-}
-
-
-
-// PROGRAMA PRINCIPAL DE PRUEBA
-
-int main()
-{
-    int opcion;
-    double masa;
-    double angulo;
-
-    printf("------------------------------------\n");
-    printf("       ARTEMIS - PRUEBA DE DATOS\n");
-    printf("------------------------------------\n\n");
-
-    // PRUEBA DE ENTEROS
-
-    if (!leerEntero("Ingrese una opcion (1 a 3): ",
-                    &opcion, 1, 3))
-    {
-        return 0;
-    }
-
-    printf("Opcion ingresada: %d\n\n", opcion);
-
-
-    // PRUEBA DE NUMEROS POSITIVOS
-
-    if (!leerRealPositivo("Ingrese la masa de la capsula (kg): ",
-                         &masa))
-    {
-        return 0;
-    }
-
-    printf("Masa ingresada: %.6f kg\n\n", masa);
-
-
-    // PRUEBA DE NUMEROS QUE PUEDEN SER CERO
-
-    if (!leerReal("Ingrese el angulo de reingreso (0 a 180 grados): ",
-                  &angulo, 0.0, 180.0))
-    {
-        return 0;
-    }
-
-    printf("Angulo ingresado: %.2f grados\n", angulo);
-
-    printf("   TODAS LAS VALIDACIONES CORRECTAS\n");
-
-    return 0;
 }
