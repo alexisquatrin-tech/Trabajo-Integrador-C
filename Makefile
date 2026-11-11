@@ -13,7 +13,8 @@ endif
 APP = build/artemis$(EXE)
 DEMO = build/demo_alexis$(EXE)
 TEST = build/test_alexis$(EXE)
-LOGICA = simulador.c amerizaje.c
+LOGICA = simulador.c amerizaje.c reingreso.c
+TEST_FLUJO = build/test_flujo$(EXE)
 
 .PHONY: all run demo test test-cli check clean
 all: $(APP)
@@ -21,7 +22,7 @@ all: $(APP)
 build:
 	mkdir -p build
 
-$(APP): main.c $(LOGICA) validaciones.c simulador.h validaciones.h | build
+$(APP): main.c $(LOGICA) validaciones.c simulador.h validaciones.h wroz.h | build
 	$(CC) $(CPPFLAGS) $(CFLAGS) main.c $(LOGICA) validaciones.c $(LDFLAGS) $(LDLIBS) -o $@
 
 $(DEMO): ejemplos/demo_alexis.c $(LOGICA) simulador.h | build
@@ -30,14 +31,18 @@ $(DEMO): ejemplos/demo_alexis.c $(LOGICA) simulador.h | build
 $(TEST): tests/test_alexis.c amerizaje.c simulador.h | build
 	$(CC) $(CPPFLAGS) $(CFLAGS) tests/test_alexis.c amerizaje.c $(LDFLAGS) $(LDLIBS) -o $@
 
+$(TEST_FLUJO): tests/test_flujo.c $(LOGICA) simulador.h wroz.h | build
+	$(CC) $(CPPFLAGS) $(CFLAGS) tests/test_flujo.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
+
 run: $(APP)
 	./$(APP)
 
 demo: $(DEMO)
 	./$(DEMO)
 
-test: $(TEST)
+test: $(TEST) $(TEST_FLUJO)
 	./$(TEST)
+	./$(TEST_FLUJO)
 
 test-cli: $(APP)
 	$(PYTHON) tests/test_menu.py ./$(APP)
@@ -45,4 +50,4 @@ test-cli: $(APP)
 check: test test-cli
 
 clean:
-	rm -f build/artemis build/artemis.exe build/demo_alexis build/demo_alexis.exe build/test_alexis build/test_alexis.exe
+	rm -f build/artemis build/artemis.exe build/demo_alexis build/demo_alexis.exe build/test_alexis build/test_alexis.exe build/test_flujo build/test_flujo.exe
