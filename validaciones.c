@@ -12,9 +12,7 @@
 #define TAM_BUFFER 128
 
 
-// ============================================
 // FUNCIONES AUXILIARES
-// ============================================
 
 // Elimina los espacios al final de una cadena.
 static void quitarEspaciosFinales(char *cadena)
@@ -73,9 +71,8 @@ static int cadenaVacia(const char *cadena)
 }
 
 
-// ============================================
 // VALIDACION DE NUMEROS ENTEROS
-// ============================================
+
 
 int leerEntero(const char *mensaje, int *valor,
                int minimo, int maximo)
@@ -145,9 +142,7 @@ int leerEntero(const char *mensaje, int *valor,
 }
 
 
-// ============================================
 // VALIDACION DE NUMEROS REALES
-// ============================================
 
 // Acepta numeros dentro de un rango inclusivo.
 int leerReal(const char *mensaje, double *valor,
@@ -217,9 +212,7 @@ int leerReal(const char *mensaje, double *valor,
 }
 
 
-// ============================================
 // VALIDACION DE NUMEROS ESTRICTAMENTE POSITIVOS
-// ============================================
 
 // Acepta cualquier numero mayor que cero.
 int leerRealPositivo(const char *mensaje, double *valor)
