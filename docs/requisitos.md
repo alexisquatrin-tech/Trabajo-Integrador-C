@@ -4,7 +4,7 @@ Fuente: PDF «Trabajo Final Integrador C.docx.pdf», leído completo. Lista de s
 
 | Requisito | Estado actual | Evidencia o trabajo pendiente |
 | --- | --- | --- |
-| Grupo de 3 a 5, conformado en aula virtual | Pendiente de verificación | Se informó un grupo de 5; faltan nombres, comisión y confirmar alta en aula. |
+| Grupo de 3 a 5, conformado en aula virtual | Pendiente de verificación | Los cinco nombres y legajos están registrados; faltan comisión y confirmar alta en aula. |
 | C nativo por consola | Base verificada en Linux | `make run`; sin servicios externos. Windows documentado, no probado. |
 | Condicionales y repeticiones | Presentes en la base | Menú, validaciones y recorrido de ángulos. Ampliar con flujo real. |
 | Modularización .c/.h | Presente en la base | `main.c`, `simulador.h/.c`, `validaciones.h/.c`, `amerizaje.c`. |
@@ -23,7 +23,7 @@ Fuente: PDF «Trabajo Final Integrador C.docx.pdf», leído completo. Lista de s
 | Historial progresivo de los cinco | Pendiente | No generar commits ficticios; aportes reales durante el desarrollo. |
 | Ramas y Pull Requests | Recomendación preparada | `CONTRIBUTING.md` y plantilla de PR. |
 | Makefile o scripts | Implementado y probado | Compilación estricta de ejecutables separados. |
-| README completo | Parcial | Tiene secciones y estado; faltan nombres, comisión, reglas finales y revisiones reales de IA. |
+| README completo | Parcial | Tiene secciones y estado; faltan comisión, reglas finales y revisiones reales de IA. |
 | Registro de IA | En curso | README con consultas, tareas y validación de la herramienta; cada estudiante debe completar su revisión. |
 | Video de hasta 5 minutos | Pendiente | Aparición y voz real de todos, arquitectura, ejecución exitosa y errores. |
 | Defensa individual del sistema | Pendiente de preparación | Todos deben comprender todo el código, no solo su módulo. |

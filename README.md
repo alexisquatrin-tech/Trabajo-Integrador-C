@@ -14,9 +14,9 @@ Comisión: **pendiente de completar**.
 | Navarro Ezequiel Leandro | 31372 | Parte 1: reingreso y frenado (a/b) |
 | Julian Nicolas Alvarez Carruega | 29342 | Parte 3: flujo, estados y eventos |
 | Juan Ignacio Pabon | 28583 | Parte 4: entradas, validaciones y menú |
-| Alex — nombre completo pendiente | Pendiente | Diseño de interfaz y mensajes de consola |
+| Merlo Alex Gabriel | 24518 | Parte 5: historial, reportes y compilación; diseño de interfaz |
 
-**Alex es un integrante distinto de Alexis.** Por ahora se ocupa del diseño visual y los mensajes de consola; Ignacio mantiene el menú y las validaciones. Faltan el nombre completo y legajo de Alex y la comisión. La parte 5 continúa pendiente de asignar.
+**Alex (Merlo Alex Gabriel) realiza la parte 5: historial, reportes y compilación.** También coordina el diseño visual y los mensajes de consola con Ignacio, quien mantiene el menú y las validaciones. Los cinco integrantes y sus legajos están registrados; falta completar la comisión.
 
 | Responsable | Parte | Archivo principal / entrega |
 | --- | --- | --- |
@@ -24,8 +24,8 @@ Comisión: **pendiente de completar**.
 | **Quatrin Oliver Alexis Javier (Alexis)** | Amerizaje y ángulo: incisos c/d | `amerizaje.c`, pruebas y explicación física |
 | Julian Nicolas Alvarez Carruega (Nico) | Flujo, estados y eventos | `simulador.c`, contratos en `simulador.h` |
 | Juan Ignacio Pabon | Entradas, validaciones y menú | `validaciones.c/.h` y `main.c` |
-| Responsable pendiente | Arreglo de historial, reportes y compilación | `reportes.c/.h` (por crear), Makefile |
-| Alex | Diseño de interfaz y mensajes de consola | Coordinar presentación con Ignacio y Nico |
+| Merlo Alex Gabriel (Alex) | Arreglo de historial, reportes y compilación | `reportes.c/.h` (por crear), Makefile |
+| Merlo Alex Gabriel (Alex) | Diseño de interfaz y mensajes de consola | Coordinar presentación con Ignacio y Nico |
 
 Cada integrante programa, prueba y documenta su aporte. README, revisión, Git, video y preparación del coloquio son responsabilidades compartidas.
 
