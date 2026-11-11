@@ -1,10 +1,16 @@
+
 #ifndef VALIDACIONES_H
 #define VALIDACIONES_H
 
-/* Lee una linea y un entero completo dentro de [minimo, maximo].
- * Reintenta ante entrada invalida. Devuelve 0 al terminar la entrada,
- * ante error de lectura o parametros invalidos; no modifica la salida.
- */
-int leer_entero(const char *mensaje, int minimo, int maximo, int *salida);
+// Lee un numero entero dentro de un rango.
+int leerEntero(const char *mensaje, int *valor,
+               int minimo, int maximo);
+
+// Lee un numero real dentro de un rango inclusivo.
+int leerReal(const char *mensaje, double *valor,
+             double minimo, double maximo);
+
+// Lee un numero real estrictamente mayor que cero.
+int leerRealPositivo(const char *mensaje, double *valor);
 
 #endif
