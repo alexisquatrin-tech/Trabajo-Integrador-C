@@ -11,19 +11,19 @@ Comisión: **pendiente de completar**.
 | Integrante | Legajo | Responsabilidad confirmada |
 | --- | --- | --- |
 | Quatrin Oliver Alexis Javier | 27880 | Amerizaje y ángulo: incisos c/d |
-| Navarro Ezequiel Leandro | 31372 | Pendiente de asignar |
-| Julian Nicolas Alvarez Carruega | 29342 | Pendiente de asignar |
-| Juan Ignacio Pabon | 28583 | Pendiente de asignar |
+| Navarro Ezequiel Leandro | 31372 | Parte 1: reingreso y frenado (a/b) |
+| Julian Nicolas Alvarez Carruega | 29342 | Parte 3: flujo, estados y eventos |
+| Juan Ignacio Pabon | 28583 | Parte 4: entradas, validaciones y menú |
 | Nombre pendiente | Pendiente | Pendiente de asignar |
 
-El integrante restante completará sus datos. Las cuatro tareas distintas de c/d todavía no tienen responsable confirmado; los números siguientes identifican partes del trabajo, no personas asignadas.
+Faltan los datos del quinto integrante y la comisión. Se indicó a **Alex** para la interfaz; falta confirmar su identidad y el alcance respecto del menú de la parte 4. La parte 5 continúa pendiente de asignar.
 
 | Responsable | Parte | Archivo principal / entrega |
 | --- | --- | --- |
-| Integrante 1 — nombre pendiente | Reingreso y frenado: incisos a/b | `reingreso.c` (por crear), pruebas y explicación física |
+| Navarro Ezequiel Leandro | Reingreso y frenado: incisos a/b | `reingreso.c` (por crear), pruebas y explicación física |
 | **Quatrin Oliver Alexis Javier (Alexis)** | Amerizaje y ángulo: incisos c/d | `amerizaje.c`, pruebas y explicación física |
-| Integrante 3 — nombre pendiente | Flujo, estados y eventos | `simulador.c`, contratos en `simulador.h` |
-| Ignacio Pabon | Entradas, validaciones y menú | `validaciones.c/.h` y `main.c` |
+| Julian Nicolas Alvarez Carruega (Nico) | Flujo, estados y eventos | `simulador.c`, contratos en `simulador.h` |
+| Juan Ignacio Pabon | Entradas, validaciones y menú | `validaciones.c/.h` y `main.c` |
 | Integrante 5 — nombre pendiente | Arreglo de historial, reportes y compilación | `reportes.c/.h` (por crear), Makefile |
 
 Cada integrante programa, prueba y documenta su aporte. README, revisión, Git, video y preparación del coloquio son responsabilidades compartidas.

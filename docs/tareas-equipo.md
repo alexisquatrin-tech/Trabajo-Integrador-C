@@ -1,8 +1,8 @@
 # Plan de trabajo del grupo
 
-Estado: base compartida. Integrantes confirmados: Quatrin Oliver Alexis Javier (legajo 27880), responsable de c/d, Navarro Ezequiel Leandro (legajo 31372), Julian Nicolas Alvarez Carruega (legajo 29342) y Juan Ignacio Pabon (legajo 28583), estos tres con tarea pendiente de asignar. Faltan los datos de un integrante y la comisión. Los números de las secciones identifican tareas; no asignan personas automáticamente.
+Estado: base compartida. Responsabilidades confirmadas: Ezequiel (Navarro Ezequiel Leandro, legajo 31372), parte 1; Alexis (Quatrin Oliver Alexis Javier, legajo 27880), parte 2; Nico (Julian Nicolas Alvarez Carruega, legajo 29342), parte 3; Ignacio (Juan Ignacio Pabon, legajo 28583), parte 4. Alex fue indicado para interfaz: identidad y alcance pendientes de confirmar. La parte 5 sigue sin responsable confirmado. Faltan los datos del quinto integrante y la comisión.
 
-## 1. Reingreso y frenado — integrante por asignar
+## 1. Reingreso y frenado — Ezequiel
 
 Crear `reingreso.c` con los incisos a/b. Acordar en `simulador.h` las estructuras y prototipos antes de programar.
 
@@ -21,7 +21,7 @@ Terminado cuando funciones, pruebas y explicación estén revisadas e integradas
 
 Pendiente: revisión personal, acuerdo del modelo físico, conexión con entrada de datos y reportes y prueba dentro del flujo completo. No volver a definir las mismas funciones en `simulador.c`.
 
-## 3. Flujo y estados — integrante por asignar
+## 3. Flujo y estados — Nico
 
 Ampliar `simulador.c`, que hoy contiene una demostración parcial con datos fijos.
 
@@ -33,7 +33,7 @@ Ampliar `simulador.c`, que hoy contiene una demostración parcial con datos fijo
 
 Terminado cuando una simulación personalizada recorra etapas coherentes y termine con reporte.
 
-## 4. Entradas y navegación — integrante por asignar
+## 4. Entradas y navegación — Ignacio Pabon
 
 Ya existe `leer_entero` y menú mínimo. Ampliar `validaciones.c/.h` y `main.c`.
 
