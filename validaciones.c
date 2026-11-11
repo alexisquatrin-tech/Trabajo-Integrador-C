@@ -100,13 +100,13 @@ int leer_entero(const char *mensaje, int minimo,
 
         if (estado == -1)
         {
-            printf("Error: entrada demasiado larga.\n");
+            printf("Entrada demasiado larga.\n");
             continue;
         }
 
         if (cadena_vacia(buffer))
         {
-            printf("Error: no puede dejar el campo vacio.\n");
+            printf("Ingrese un numero entero valido.\n");
             continue;
         }
 
@@ -122,13 +122,13 @@ int leer_entero(const char *mensaje, int minimo,
             errno == ERANGE ||
             numero < INT_MIN || numero > INT_MAX)
         {
-            printf("Error: debe ingresar un numero entero valido.\n");
+            printf("Ingrese un numero entero valido.\n");
             continue;
         }
 
         if (numero < minimo || numero > maximo)
         {
-            printf("Error: el valor debe estar entre %d y %d.\n",
+            printf("Ingrese un numero entero valido entre %d y %d.\n",
                    minimo, maximo);
             continue;
         }
@@ -171,13 +171,13 @@ int leer_real(const char *mensaje, double minimo,
 
         if (estado == -1)
         {
-            printf("Error: entrada demasiado larga.\n");
+            printf("Entrada demasiado larga.\n");
             continue;
         }
 
         if (cadena_vacia(buffer))
         {
-            printf("Error: no puede dejar el campo vacio.\n");
+            printf("Ingrese un numero real valido.\n");
             continue;
         }
 
@@ -192,13 +192,13 @@ int leer_real(const char *mensaje, double minimo,
         if (buffer == fin || *fin != '\0' ||
             errno == ERANGE || !isfinite(numero))
         {
-            printf("Error: debe ingresar un numero real valido.\n");
+            printf("Ingrese un numero real valido.\n");
             continue;
         }
 
         if (numero < minimo || numero > maximo)
         {
-            printf("Error: el valor debe estar entre %.6g y %.6g.\n",
+            printf("Ingrese un numero real valido entre %.6g y %.6g.\n",
                    minimo, maximo);
             continue;
         }
@@ -211,7 +211,6 @@ int leer_real(const char *mensaje, double minimo,
 
 
 // VALIDACION DE NUMEROS POSITIVOS
-
 
 // Acepta cualquier numero estrictamente mayor que cero.
 int leer_real_positivo(const char *mensaje, double *valor)
@@ -240,13 +239,13 @@ int leer_real_positivo(const char *mensaje, double *valor)
 
         if (estado == -1)
         {
-            printf("Error: entrada demasiado larga.\n");
+            printf("Entrada demasiado larga.\n");
             continue;
         }
 
         if (cadena_vacia(buffer))
         {
-            printf("Error: no puede dejar el campo vacio.\n");
+            printf("Ingrese un numero real valido.\n");
             continue;
         }
 
@@ -261,13 +260,13 @@ int leer_real_positivo(const char *mensaje, double *valor)
         if (buffer == fin || *fin != '\0' ||
             errno == ERANGE || !isfinite(numero))
         {
-            printf("Error: debe ingresar un numero real valido.\n");
+            printf("Ingrese un numero real valido.\n");
             continue;
         }
 
         if (numero <= 0.0)
         {
-            printf("Error: el valor debe ser mayor que cero.\n");
+            printf("Ingrese un numero mayor que cero.\n");
             continue;
         }
 
