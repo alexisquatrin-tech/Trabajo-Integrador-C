@@ -1,5 +1,3 @@
-
-
 #ifndef VALIDACIONES_H
 #define VALIDACIONES_H
 
@@ -15,4 +13,3 @@ int leer_real(const char *mensaje, double minimo,
 int leer_real_positivo(const char *mensaje, double *valor);
 
 #endif
-
