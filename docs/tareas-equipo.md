@@ -4,7 +4,7 @@ Estado: base compartida. Responsabilidades confirmadas: Ezequiel (Navarro Ezequi
 
 ## 1. Reingreso y frenado — Ezequiel
 
-Crear `reingreso.c` con los incisos a/b. Acordar en `simulador.h` las estructuras y prototipos antes de programar.
+Revisar la implementación provisional de `reingreso.c` que Nico agregó para probar el flujo con los incisos a/b. Acordar en `simulador.h` las estructuras y prototipos antes de programar.
 
 - Incluir masa, rapidez inicial/final, altitud inicial/final y duración del intervalo elegido.
 - Trabajo atmosférico, con gravedad: `Wroz = (m/2)*(vf² - vi²) - m*g*(hi - hf)`.
@@ -23,7 +23,7 @@ Pendiente: revisión personal, acuerdo del modelo físico, conexión con entrada
 
 ## 3. Flujo y estados — Nico
 
-Ampliar `simulador.c`, que hoy contiene una demostración parcial con datos fijos.
+El flujo corregido de Nico ya está integrado en `simulador.c`, con datos fijos. Pasan 56 comprobaciones del flujo y 11 pruebas del menú; falta conectar la configuración personalizada y los reportes.
 
 - Proponer estado y etapas: configuración, reingreso, paracaídas, amerizaje y reporte.
 - Permitir avance interactivo por eventos; coordinar cálculo y actualización por punteros.
@@ -35,7 +35,7 @@ Terminado cuando una simulación personalizada recorra etapas coherentes y termi
 
 ## 4. Entradas y navegación — Ignacio Pabon
 
-Ya existe `leer_entero` y menú mínimo. Ampliar `validaciones.c/.h` y `main.c`.
+Ya existen `leer_entero`, `leer_real` y `leer_real_positivo`, y el menú inicia la simulación por eventos. Ver `integracion-flujo.md` para completar la configuración personalizada. Ampliar `validaciones.c/.h` y `main.c`.
 
 - Agregar lectura segura de reales y opciones/caracteres que realmente necesite la interfaz.
 - Elegir valores de referencia o personalizados, con unidades visibles.

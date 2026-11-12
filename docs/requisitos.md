@@ -9,14 +9,14 @@ Fuente: PDF «Trabajo Final Integrador C.docx.pdf», leído completo. Lista de s
 | Condicionales y repeticiones | Presentes en la base | Menú, validaciones y recorrido de ángulos. Ampliar con flujo real. |
 | Modularización .c/.h | Presente en la base | `main.c`, `simulador.h/.c`, `validaciones.h/.c`, `amerizaje.c`. |
 | Estructuras y punteros | Presentes | Datos y resultados de amerizaje y actualización por puntero. |
-| Arreglos funcionales | Parcial | Arreglo de ángulos en demo; falta historial útil del simulador final. |
+| Arreglos funcionales | Parcial | Arreglos de mensajes y casos de prueba; falta historial útil del simulador final. |
 | Validación exhaustiva y manejo de errores | Parcial | Menú de enteros y controles numéricos c/d; falta entrada de magnitudes y prueba completa. |
 | Menú principal | Base implementada | Demo, estado y salida; faltan opciones definitivas. |
-| Simulación por turnos o eventos | Pendiente | Hoy solo demo de valores fijos. |
+| Simulación por turnos o eventos | Implementada con datos fijos | Flujo de Nico integrado: Enter avanza, 0 aborta. |
 | Reportes finales de desempeño | Pendiente | La salida de demo no sustituye reporte integrado. |
-| Escenario 4 y variación de entradas | Parcial | c/d calculables por funciones; falta entrada personalizada y a/b. |
-| Inciso a: trabajo atmosférico | Pendiente | Responsable 1. |
-| Inciso b: desaceleración y g | Pendiente | Responsable 1; documentar intervalo de 400 s. |
+| Escenario 4 y variación de entradas | Parcial | a/b provisionales y c/d conectados al flujo; falta entrada personalizada. |
+| Inciso a: trabajo atmosférico | Provisional | Adaptador agregado por Nico; revisar con Ezequiel. |
+| Inciso b: desaceleración y g | Provisional | Revisar con Ezequiel el supuesto del intervalo de 400 s. |
 | Inciso c: fuerza del agua y peso | Implementado y probado | `amerizaje.c`, 323.786,67 N y 3,1769 con valores base; revisión estudiantil pendiente. |
 | Inciso d: ventana y consecuencias | Implementado y probado | Ventana inclusiva y mensajes cualitativos. |
 | Repositorio público | Configuración externa por verificar | El propietario comprueba visibilidad en GitHub. |

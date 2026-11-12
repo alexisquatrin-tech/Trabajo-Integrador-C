@@ -9,7 +9,7 @@ int main(void)
 
     puts("ARTEMIS - Escenario 4 | Base de desarrollo del equipo");
     do {
-        puts("\n1. Demostracion de amerizaje y angulo (datos de la consigna)");
+        puts("\n1. Simulacion por eventos (datos de la consigna)");
         puts("2. Consultar estado del desarrollo");
         puts("0. Salir");
         if (!leer_entero("Opcion: ", 0, 2, &opcion)) {
@@ -25,8 +25,8 @@ int main(void)
                 ejecutar_simulacion();
                 break;
             case 2:
-                puts("Implementados: incisos c/d y menu base con lectura de enteros.");
-                puts("Pendientes: a/b, datos personalizados, eventos e historial/reportes.");
+                puts("Implementados: flujo por eventos, calculos a/b provisionales y c/d.");
+                puts("Pendientes: datos personalizados, revision de a/b e historial/reportes.");
                 break;
             case 0:
                 puts("Hasta luego.");

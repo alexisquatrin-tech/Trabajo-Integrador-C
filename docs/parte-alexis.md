@@ -47,7 +47,7 @@ Los límites 5,5 y 7,0 están incluidos. Esta clasificación es cualitativa: no 
 
 - `simulador.h`: constantes, estructuras, enumeración de estados y prototipos públicos. El equipo puede ampliarlo con los otros módulos.
 - `amerizaje.c`: funciones de cálculo y clasificación de esta parte. No lee el teclado ni imprime mensajes.
-- `simulador.c`: coordina la demostración; se ampliará con el flujo por eventos.
+- `simulador.c`: coordina el flujo por eventos integrado con el menú.
 - `main.c`: menú base del equipo.
 - `ejemplos/demo_alexis.c`: ejecutable separado que llama a la demostración con valores fijos.
 - `tests/test_alexis.c`: pruebas con arreglos de casos y comprobaciones numéricas.
@@ -82,10 +82,10 @@ make demo
 make test
 ```
 
-La demo usa los datos del enunciado y varios ángulos. Las pruebas verifican valores manuales, balance de energía, proporcionalidad con la masa, efecto de la distancia, límites de la ventana, entradas inválidas y conservación de la salida ante un error. No se reemplazan las pruebas de entrada por consola del futuro módulo de validaciones.
+La demo recorre tres eventos con los datos del enunciado y un ángulo de ejemplo de 6°; Enter avanza y 0 aborta. Las variaciones de ángulo se verifican en las pruebas. Las pruebas verifican valores manuales, balance de energía, proporcionalidad con la masa, efecto de la distancia, límites de la ventana, entradas inválidas y conservación de la salida ante un error. No se reemplazan las pruebas de entrada por consola del futuro módulo de validaciones.
 
 ## 5. Integración pendiente del equipo
 
-Faltan los incisos a y b, el flujo por eventos, el menú final con datos personalizados, validaciones de las magnitudes físicas, historial y reportes. Ya existe un menú base con lectura segura de enteros. El arreglo de casos de prueba no sustituye el uso de arreglos en el simulador final; se propone el historial de simulaciones para ese requisito. Actualizar el Makefile cuando se agreguen esos archivos, sin enlazar simultáneamente los main de demo, pruebas y programa final.
+El flujo por eventos ya está integrado con el menú y con una implementación provisional de a/b. Faltan la revisión de a/b, la conexión de datos personalizados, historial y reportes. Ya existe un menú base con lectura segura de enteros. El arreglo de casos de prueba no sustituye el uso de arreglos en el simulador final; se propone el historial de simulaciones para ese requisito. Actualizar el Makefile cuando se agreguen esos archivos, sin enlazar simultáneamente los main de demo, pruebas y programa final.
 
 El equipo debe completar integrantes y comisión en el README, aportar commits progresivos, revisar las interfaces compartidas y preparar el video y la defensa. Antes de integrar, Alexis debe leer el código, ejecutar los comandos y poder justificar la fórmula, el uso de punteros, los retornos de error y los límites inclusivos.

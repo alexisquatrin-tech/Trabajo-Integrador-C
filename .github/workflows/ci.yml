@@ -13,6 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Compilar programa y demo
-        run: make all demo
+        run: make all build/demo_alexis
       - name: Probar calculos y menu
         run: make check

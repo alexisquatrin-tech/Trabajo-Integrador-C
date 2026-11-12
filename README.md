@@ -2,7 +2,7 @@
 
 Trabajo Final Integrador de **Algoritmos y Estructuras de Datos**, Ingeniería en Sistemas de Información, UTN Facultad Regional Resistencia. Programa en C, nativo por consola.
 
-> **Base de desarrollo compartida, no entrega final.** Funcionan el menú inicial y los incisos c/d de Alexis. Los incisos a/b, los datos personalizados, el ciclo por eventos y el historial/reporte completo están pendientes. La demo no representa una misión completa.
+> **Base de desarrollo compartida, no entrega final.** Funcionan el menú, el flujo por eventos de Nico y los cálculos de amerizaje. Hay una implementación provisional de a/b para ejecutar el recorrido completo con datos fijos. Faltan datos personalizados, revisión definitiva de a/b e historial/reportes.
 
 ## Equipo y comisión
 
@@ -18,7 +18,7 @@ Comisión: **pendiente de completar**.
 
 | Responsable | Parte | Archivo principal / entrega |
 | --- | --- | --- |
-| Navarro Ezequiel Leandro | Reingreso y frenado: incisos a/b | `reingreso.c` (por crear), pruebas y explicación física |
+| Navarro Ezequiel Leandro | Reingreso y frenado: incisos a/b | `reingreso.c` (provisional; revisar), pruebas y explicación física |
 | **Quatrin Oliver Alexis Javier (Alexis)** | Amerizaje y ángulo: incisos c/d | `amerizaje.c`, pruebas y explicación física |
 | Julian Nicolas Alvarez Carruega (Nico) | Flujo, estados y eventos | `simulador.c`, contratos en `simulador.h` |
 | Juan Ignacio Pabon | Entradas, validaciones y menú | `validaciones.c/.h` y `main.c` |
@@ -39,7 +39,7 @@ Orion regresa a la Tierra y debe disipar energía antes de amerizar. Valores de 
 | Rapidez de impacto / hundimiento | 8 m/s / 1,50 m |
 | Ventana segura del ángulo de entrada | 5,5° a 7,0°, inclusive |
 
-Se propone un simulador por eventos: configurar datos, evaluar reingreso, avanzar a paracaídas, evaluar amerizaje y emitir/guardar el reporte. El usuario podrá repetir simulaciones y compararlas. **Este flujo está por implementar**; los modelos y reglas definitivos deben acordarse en equipo. No agregar vidas, puntajes o límites estructurales como si fueran requisitos de la cátedra.
+Se propone un simulador por eventos: configurar datos, evaluar reingreso, avanzar a paracaídas, evaluar amerizaje y emitir/guardar el reporte. El usuario podrá repetir simulaciones y compararlas. **El recorrido reingreso → paracaídas → amerizaje ya funciona con datos fijos; configuración personalizada e historial están pendientes**; los modelos y reglas definitivos deben acordarse en equipo. No agregar vidas, puntajes o límites estructurales como si fueran requisitos de la cátedra.
 
 Modelo actual c/d: movimiento vertical de detención, masa y gravedad constantes, fuerza del agua promediada respecto del desplazamiento. Incluye el trabajo del peso: `Fagua = m*g + m*v²/(2*d)`. Con los datos de referencia: **323.786,67 N**, **3,1769 veces el peso**. El ángulo se clasifica cualitativamente; no se calcula trayectoria ni temperatura y la ventana no garantiza toda la misión. [Fórmulas y límites](docs/parte-alexis.md).
 
@@ -52,9 +52,9 @@ Desde la raíz del repositorio, en Linux o una terminal MSYS2 UCRT64 en Windows:
 ```sh
 make          # Compila build/artemis (artemis.exe en Windows)
 make run      # Ejecuta el menú actual
-make demo     # Ejecuta directamente la demostración c/d
-make test     # Ejecuta las 55 comprobaciones C de Alexis
-make check    # Ejecuta las pruebas C y las 7 pruebas de menú con Python
+make demo     # Ejecuta el recorrido por eventos; Enter avanza, 0 aborta
+make test     # Ejecuta 55 comprobaciones de amerizaje y 56 del flujo
+make check    # Ejecuta las pruebas C y las 11 pruebas de menú con Python
 make clean    # Elimina los ejecutables generados
 ```
 
@@ -127,15 +127,15 @@ cd "/c/Users/TU_USUARIO/Downloads/Trabajo-Integrador-C-main"
 **5. Ejecutar desde esa terminal.** Usar estos comandos para compilar todos los módulos necesarios, con el Makefile del equipo:
 
 ```sh
-make run                  # Menú interactivo: 1 demo, 2 estado, 0 salir
+make run                  # Menú interactivo: 1 simulación, 2 estado, 0 salir
 make demo                 # Demostración directa con los datos del enunciado
 make test                 # Pruebas C del módulo de Alexis
 make check PYTHON=python  # Pruebas C y pruebas automáticas del menú
 ```
 
-Resultados esperados en la base actual: la demo muestra **323786.67 N** y **3.1769**; `make test` informa **55 comprobaciones correctas y 0 fallidas**; las pruebas del menú informan **7 pruebas y OK**. Las cantidades pueden cambiar cuando el equipo amplíe las pruebas. Registrar siempre la salida real, no copiar estos resultados como si se hubieran ejecutado personalmente.
+Resultados esperados en la base actual: la demo muestra **323786.67 N** y **3.1769**; `make test` informa **55 comprobaciones de amerizaje y 56 de flujo correctas, sin fallos**; las pruebas del menú informan **11 pruebas y OK**. Las cantidades pueden cambiar cuando el equipo amplíe las pruebas. Registrar siempre la salida real, no copiar estos resultados como si se hubieran ejecutado personalmente.
 
-Para probar manualmente las validaciones del menú, ejecutar `make run`, ingresar `abc`, una línea vacía y `9`: debe informar el error y volver a pedir la opción. Luego ingresar `1` para ejecutar la demo y `0` para salir. Los datos físicos de la demo siguen siendo fijos; esta prueba no valida todavía su ingreso personalizado.
+Para probar manualmente las validaciones del menú, ejecutar `make run`, ingresar `abc`, una línea vacía y `9`: debe informar el error y volver a pedir la opción. Luego ingresar `1`, presionar Enter en cada una de las tres etapas y, al volver al menú, ingresar `0` para salir. Dentro de una etapa, `0` aborta la misión y vuelve al menú. Los datos físicos de la demo siguen siendo fijos; esta prueba no valida todavía su ingreso personalizado.
 
 Si una herramienta aparece como `command not found`, verificar que se abrió una terminal **MSYS2 UCRT64** nueva y que la instalación del paso 1 terminó. Si cambian las herramientas de compilación, ejecutar `make clean` antes de recompilar.
 
@@ -143,9 +143,10 @@ Estas instrucciones de VS Code/Windows están documentadas, pero no se ejecutaro
 
 ### Funcionamiento actual
 
-1. Elegir `1` para ejecutar los datos fijos de la consigna y ver cinco clasificaciones de ángulo.
-2. Elegir `2` para consultar qué está implementado y qué falta.
-3. Elegir `0` para salir. El fin de entrada también termina sin bucles infinitos.
+1. Elegir `1` para iniciar la simulación con los datos de la consigna y un ángulo de ejemplo de 6°.
+2. Presionar Enter para avanzar por reingreso, paracaídas y amerizaje. Dentro de una etapa, `0` aborta y vuelve al menú.
+3. Elegir `2` para consultar qué está implementado y qué falta.
+4. Elegir `0` en el menú para salir. El fin de entrada también termina sin bucles infinitos.
 
 El menú rechaza letras, líneas vacías, números fuera de rango, sufijos y líneas demasiado largas. Aún falta leer y validar las magnitudes físicas ingresadas por el usuario.
 
@@ -155,9 +156,9 @@ El menú rechaza letras, líneas vacías, números fuera de rango, sufijos y lí
 main.c                 menú e inicialización; una sola función main
 validaciones.c/.h      lectura segura de la opción del menú; ampliar para datos
 simulador.h            constantes, structs, enum y contratos compartidos
-simulador.c            coordinación; actualmente demostración parcial
+simulador.c            coordinación por eventos y pausas interactivas
 amerizaje.c            cálculos y clasificación de Alexis (c/d)
-reingreso.c            PENDIENTE: cálculos a/b
+reingreso.c            cálculos a/b provisionales; revisión por Ezequiel
 reportes.c/.h          PENDIENTE: historial y reportes finales
 ```
 
@@ -166,7 +167,7 @@ flowchart TD
     M[main: menú] --> V[validaciones: lectura segura]
     M --> S[simulador: coordinación]
     S --> A[amerizaje: c/d implementados]
-    S -. pendiente .-> R[reingreso: a/b]
+    S --> R[reingreso: a/b provisionales]
     S -. pendiente .-> H[historial y reportes]
 ```
 
@@ -178,6 +179,7 @@ Las demos y pruebas tienen sus propios `main` en ejecutables separados. No compi
 - [Tareas concretas de los cinco integrantes](docs/tareas-equipo.md).
 - [Lista de requisitos y evidencias](docs/requisitos.md).
 - [Explicación de la parte de Alexis](docs/parte-alexis.md).
+- [Integración de flujo y validaciones para Ignacio](docs/integracion-flujo.md).
 
 El repositorio de entrega debe ser **público** y mostrar commits progresivos reales de todos. Ramas y PR son recomendados por la consigna. La protección de `main` y el acceso de colaboradores se configuran en GitHub: los archivos de este proyecto no los activan.
 
@@ -203,3 +205,8 @@ Revisión y adaptación por los estudiantes: **pendiente**. Cada integrante debe
 Consulta: «armemos el repo que vamos a usar con el grupo para el trabajo integrador, leete de vuelta el pdf del trabajo que te habia mandado».
 
 ChatGPT/Codex releyó la consigna completa, separó c/d en `amerizaje.c`, agregó un menú base, lectura segura de enteros, pruebas del ejecutable, documentación de requisitos/tareas, guía de contribución y configuración de CI. Se mantuvo pendiente la implementación de las partes de los compañeros. Se ejecutaron en Linux la compilación estricta, la demo, 55 comprobaciones C y 7 pruebas del menú; todas pasaron. La configuración de CI se ejecutará en GitHub cuando se publique y no equivale a una ejecución ya observada allí. Windows no fue probado en este entorno.
+
+
+### Integración del flujo corregido de Nico
+
+Consulta: «integralas al repo». Se integró la rama `flujo/nico` conservando su historial y se aplicaron los tres archivos corregidos del ZIP aportado por Alexis. Se conservaron las validaciones actuales de Ignacio, se actualizaron los textos y las secuencias de pruebas del menú y se agregaron casos de cancelación, fin de entrada y recuperación en pausas. Validación ejecutada por Codex en Linux: compilación estricta desde limpio, 55 comprobaciones de amerizaje, 56 de flujo y 11 pruebas de menú aprobadas. No acredita ejecución personal por los estudiantes ni prueba en Windows.
