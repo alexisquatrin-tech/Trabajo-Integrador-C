@@ -197,7 +197,7 @@ Herramienta: ChatGPT/Codex. Registro del 3 de noviembre de 2026.
 
 Validación realizada por la herramienta: compilación C17 con advertencias tratadas como errores, ejecución de la demo y 55 comprobaciones automáticas aprobadas. Se incluyó el trabajo del peso para distinguir fuerza del agua de fuerza neta; se documentaron los supuestos físicos y los límites del modelo. Se separaron las funciones de cálculo de la entrada/salida para integrarlas con el resto del equipo.
 
-Revisión y adaptación por los estudiantes: **pendiente**. Cada integrante debe registrar aquí qué verificó, modificó o descartó. La validación automatizada no acredita que el equipo comprenda o haya revisado personalmente el código.
+Revisión y adaptación por los estudiantes: **en curso**. Las verificaciones realizadas por Alexis se detallan a continuación; cada compañero debe completar su propio registro. La ejecución de pruebas no acredita por sí sola la comprensión integral del código.
 
 
 ### Preparación de la base compartida
@@ -210,3 +210,15 @@ ChatGPT/Codex releyó la consigna completa, separó c/d en `amerizaje.c`, agreg�
 ### Integración del flujo corregido de Nico
 
 Consulta: «integralas al repo». Se integró la rama `flujo/nico` conservando su historial y se aplicaron los tres archivos corregidos del ZIP aportado por Alexis. Se conservaron las validaciones actuales de Ignacio, se actualizaron los textos y las secuencias de pruebas del menú y se agregaron casos de cancelación, fin de entrada y recuperación en pausas. Validación ejecutada por Codex en Linux: compilación estricta desde limpio, 55 comprobaciones de amerizaje, 56 de flujo y 11 pruebas de menú aprobadas. No acredita ejecución personal por los estudiantes ni prueba en Windows.
+
+
+### Revisión personal de Alexis — 12 de noviembre de 2026
+
+Quatrin Oliver Alexis Javier ejecutó el proyecto en Windows, desde MSYS2 UCRT64 integrado en VS Code. Compartió la salida de los comandos y sus cálculos durante esta conversación con ChatGPT/Codex.
+
+- **Recorrido completo:** ejecutó la opción 1 de `make run`, avanzó por las tres etapas y confirmó `MISION EXITOSA` y el retorno al menú. La salida de amerizaje mostró 332800.00 J, 101920.00 N, 323786.67 N y 3.1769 veces el peso.
+- **Pruebas automáticas:** ejecutó `make check PYTHON=python`. Resultado compartido: 55 comprobaciones de amerizaje correctas, 56 comprobaciones del flujo correctas y 11 pruebas del menú aprobadas; ningún fallo.
+- **Validación manual del menú:** ingresó `abc` y `9`; el programa rechazó ambas entradas y volvió a solicitar una opción. Inició una misión, la abortó con `0` en la primera pausa, comprobó el regreso al menú sin mensaje de éxito y salió normalmente con `0`.
+- **Contraste con calculadora:** para masa 10400 kg, rapidez 8 m/s, hundimiento 1.50 m y gravedad 9.80 m/s², verificó energía cinética de 332800 J, peso de 101920 N, fuerza promedio del agua de 323786.6667 N y relación fuerza/peso de 3.176870748. Corrigió un error inicial de operación al separar la división por la distancia de la suma del peso.
+
+Consultas de esta revisión: «sigamos con mi registro de uso de ia, vamos con las pruebas de mi parte», «vamos con la demo primero» y «avancemos con las pruebas que debo realizar [...] sin vs code». ChatGPT/Codex orientó los comandos, ayudó a configurar la terminal y localizar el proyecto, propuso las secuencias de prueba y explicó la corrección del cálculo manual. Alexis ejecutó los comandos en su equipo y compartió los resultados. Estas acciones verifican los casos indicados; no significan que se hayan probado todas las entradas posibles ni completado la defensa de cada línea de código. La justificación física de la fórmula y la comprensión integral siguen en preparación.
