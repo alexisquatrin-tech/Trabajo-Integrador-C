@@ -1,4 +1,3 @@
-
 #ifndef SIMULADOR_H
 #define SIMULADOR_H
 
@@ -7,6 +6,7 @@
 #define ANGULO_MINIMO_SEGURO 5.5
 #define ANGULO_MAXIMO_SEGURO 7.0
 
+/* Datos del amerizaje. */
 typedef struct {
     double masa_kg;
     double velocidad_impacto_ms;
@@ -27,27 +27,21 @@ typedef enum {
     DESACELERACION_EXCESIVA
 } EstadoReingreso;
 
-/* Devuelve 1 si calcula; 0 ante datos invalidos o fuera del rango numerico.
- * Los punteros deben apuntar a objetos validos. NULL se rechaza.
- * En caso de error no modifica el resultado.
- * masa y hundimiento > 0; rapidez >= 0; todos finitos.
- */
+/* Funciones del modulo de amerizaje. */
 int calcular_amerizaje(const DatosAmerizaje *datos,
                        ResultadoAmerizaje *resultado);
 
-/* Magnitud del angulo descendente respecto de la horizontal: [0, 90]. */
 EstadoReingreso clasificar_angulo(double angulo_grados);
+
 const char *describir_angulo(EstadoReingreso estado);
 
 /* ------------------------------------------------------------------
- * Parte 3 (Nico): flujo, estados y eventos.
+ * Parte 3: flujo, estados y eventos.
  * ------------------------------------------------------------------ */
 
-/* Rapidez maxima considerada segura para el amerizaje. */
 #define VELOCIDAD_IMPACTO_SEGURA_MS 8.0
 
-/* Todos los datos de entrada de una mision (SI, angulo en grados).
- * Los valores originales de la consigna salen de config_consigna(). */
+/* Configuracion completa de una mision. */
 typedef struct {
     double masa_kg;
     double angulo_grados;
@@ -60,7 +54,7 @@ typedef struct {
     double hundimiento_m;
 } ConfigMision;
 
-/* Contrato con reingreso.c (incisos a y b). */
+/* Datos enviados al modulo de reingreso. */
 typedef struct {
     double masa_kg;
     double velocidad_inicial_ms;
@@ -76,7 +70,11 @@ typedef struct {
     double desaceleracion_g;
 } ResultadoReingreso;
 
-/* Etapas por las que pasa la capsula, en orden. */
+/* Funcion del modulo de reingreso. */
+int calcular_reingreso(const DatosReingreso *datos,
+                       ResultadoReingreso *resultado);
+
+/* Etapas de la mision. */
 typedef enum {
     ETAPA_REINGRESO,
     ETAPA_PARACAIDAS,
@@ -84,7 +82,7 @@ typedef enum {
     ETAPA_FINALIZADA
 } EtapaMision;
 
-/* Como termino (o en que punto esta) la mision. */
+/* Resultados posibles de la mision. */
 typedef enum {
     MISION_EN_CURSO,
     MISION_EXITOSA,
@@ -96,7 +94,7 @@ typedef enum {
     MISION_ERROR_CALCULO
 } ResultadoMision;
 
-/* Estado de la capsula en cada momento de la simulacion. */
+/* Estado actual de la capsula. */
 typedef struct {
     EtapaMision etapa;
     ResultadoMision resultado;
@@ -108,27 +106,26 @@ typedef struct {
     ResultadoAmerizaje amerizaje;
 } EstadoCapsula;
 
-/* Configuracion original de la consigna.
- * Se utiliza un angulo de ejemplo de 6 grados porque no se especifica. */
+/* Configuracion original del escenario. */
 ConfigMision config_consigna(void);
 
-/* Comprueba que todos los datos sean finitos y coherentes. */
+/* Validacion de la configuracion completa. */
 int config_valida(const ConfigMision *config);
 
-/* Deja la capsula lista para empezar. */
+/* Inicializacion y avance de estados. */
 void iniciar_estado(EstadoCapsula *estado, const ConfigMision *config);
 
-/* Ejecuta el evento de la etapa actual y actualiza el estado. */
 int avanzar_etapa(EstadoCapsula *estado, const ConfigMision *config);
 
+/* Descripciones de etapas y resultados. */
 const char *nombre_etapa(EtapaMision etapa);
+
 const char *describir_resultado(ResultadoMision resultado);
 
-/* Ejecuta la simulacion con los valores originales de la consigna. */
+/* Simulacion con valores originales. */
 void ejecutar_simulacion(void);
 
-/* Ejecuta la simulacion utilizando la configuracion recibida.
- * Devuelve el control al menu al finalizar o abortar. */
+/* Simulacion con valores personalizados. */
 void ejecutar_simulacion_configurada(const ConfigMision *config);
 
 #endif
