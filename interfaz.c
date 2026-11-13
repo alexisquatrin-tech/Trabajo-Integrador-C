@@ -1,7 +1,51 @@
+
 #include <stdio.h>
 
 #include "interfaz.h"
 #include "validaciones.h"
+
+static void mostrar_guia_configuracion(void)
+{
+    printf("\n========================================\n");
+    printf("       GUIA DE CONFIGURACION\n");
+    printf("========================================\n");
+
+    printf("\n--- Datos de la capsula ---\n");
+    printf("Masa: mayor que 0 kg. Referencia: 10400 kg.\n");
+
+    printf("\n--- Datos del reingreso ---\n");
+    printf("Angulo: entre 0 y 90 grados.\n");
+    printf("  Menor a 5.5 grados: rebote atmosferico.\n");
+    printf("  Entre 5.5 y 7.0 grados: ventana segura.\n");
+    printf("  Mayor a 7.0 grados: desaceleracion excesiva.\n");
+    printf("Velocidad inicial: mayor que 0 m/s.\n");
+    printf("Altitud inicial: mayor que la altitud de despliegue.\n");
+
+    printf("\n--- Datos del paracaidas ---\n");
+    printf("Velocidad: desde 0 hasta un valor menor que la inicial.\n");
+    printf("Altitud: mayor que 0 y menor que la inicial.\n");
+    printf("Duracion del frenado: mayor que 0 segundos.\n");
+
+    printf("\n--- Datos del amerizaje ---\n");
+    printf("Velocidad de impacto: igual o mayor que 0 m/s.\n");
+    printf("Hundimiento: mayor que 0 metros.\n");
+
+    printf("\n--- Valores originales de referencia ---\n");
+    printf("Masa: 10400 kg | Angulo: 6 grados\n");
+    printf("Velocidad inicial: 11000 m/s\n");
+    printf("Altitud inicial: 120000 m\n");
+    printf("Velocidad del paracaidas: 25 m/s\n");
+    printf("Altitud de despliegue: 2500 m\n");
+    printf("Duracion del frenado: 400 segundos\n");
+    printf("Velocidad de impacto: 8 m/s\n");
+    printf("Hundimiento: 1.50 m\n");
+
+    printf("\n========================================\n");
+    printf("IMPORTANTE: los valores fuera de la ventana\n");
+    printf("segura del angulo tambien pueden ingresarse\n");
+    printf("para analizar posibles fallas de la mision.\n");
+    printf("========================================\n");
+}
 
 int solicitar_configuracion_mision(ConfigMision *config)
 {
@@ -11,65 +55,76 @@ int solicitar_configuracion_mision(ConfigMision *config)
         return 0;
     }
 
+    mostrar_guia_configuracion();
+
     printf("\n========================================\n");
     printf("       CONFIGURACION PERSONALIZADA\n");
     printf("========================================\n");
-    printf("Ingrese los valores para la nueva mision.\n\n");
+    printf("Ingrese los valores para la nueva mision.\n");
 
     while (1) {
         temporal = config_consigna();
 
         printf("\n--- Datos de la capsula ---\n");
 
-        if (!leer_real_positivo("Masa de la capsula (kg): ",
+        if (!leer_real_positivo(
+                "Masa de la capsula (kg, mayor que 0): ",
                 &temporal.masa_kg)) {
             return 0;
         }
 
-        if (!leer_real("Angulo de reingreso (grados, 0 a 90): ",
+        if (!leer_real(
+                "Angulo de reingreso (grados, de 0 a 90): ",
                 0.0, 90.0, &temporal.angulo_grados)) {
             return 0;
         }
 
         printf("\n--- Datos del reingreso ---\n");
 
-        if (!leer_real_positivo("Velocidad inicial (m/s): ",
+        if (!leer_real_positivo(
+                "Velocidad inicial (m/s, mayor que 0): ",
                 &temporal.velocidad_entrada_ms)) {
             return 0;
         }
 
-        if (!leer_real_positivo("Altitud inicial (m): ",
+        if (!leer_real_positivo(
+                "Altitud inicial (m, mayor que la de despliegue): ",
                 &temporal.altitud_entrada_m)) {
             return 0;
         }
 
         printf("\n--- Despliegue del paracaidas ---\n");
 
-        if (!leer_real("Velocidad al desplegar el paracaidas (m/s): ",
+        if (!leer_real(
+                "Velocidad al desplegar el paracaidas (m/s, desde 0): ",
                 0.0, 1000000000.0,
                 &temporal.velocidad_paracaidas_ms)) {
             return 0;
         }
 
-        if (!leer_real_positivo("Altitud de despliegue del paracaidas (m): ",
+        if (!leer_real_positivo(
+                "Altitud de despliegue (m, mayor que 0): ",
                 &temporal.altitud_paracaidas_m)) {
             return 0;
         }
 
-        if (!leer_real_positivo("Duracion del frenado (segundos): ",
+        if (!leer_real_positivo(
+                "Duracion del frenado (segundos, mayor que 0): ",
                 &temporal.duracion_frenado_s)) {
             return 0;
         }
 
         printf("\n--- Datos del amerizaje ---\n");
 
-        if (!leer_real("Velocidad de impacto (m/s): ",
+        if (!leer_real(
+                "Velocidad de impacto (m/s, desde 0): ",
                 0.0, 1000000000.0,
                 &temporal.velocidad_impacto_ms)) {
             return 0;
         }
 
-        if (!leer_real_positivo("Hundimiento en el agua (m): ",
+        if (!leer_real_positivo(
+                "Hundimiento en el agua (m, mayor que 0): ",
                 &temporal.hundimiento_m)) {
             return 0;
         }
@@ -81,10 +136,15 @@ int solicitar_configuracion_mision(ConfigMision *config)
         }
 
         printf("\nERROR: los datos ingresados no son coherentes.\n");
-        printf("Verifique especialmente que:\n");
-        printf("- La altitud inicial sea mayor que la de despliegue.\n");
-        printf("- La velocidad inicial sea mayor que la del paracaidas.\n");
-        printf("- Todos los valores sean compatibles con el escenario.\n");
+        printf("\nVerifique las siguientes condiciones:\n");
+        printf("- La altitud inicial debe ser mayor que la de despliegue.\n");
+        printf("- La velocidad inicial debe ser mayor que la del paracaidas.\n");
+        printf("- La altitud de despliegue debe ser mayor que 0.\n");
+        printf("- La duracion del frenado debe ser mayor que 0.\n");
+        printf("- La masa y el hundimiento deben ser mayores que 0.\n");
+        printf("- El angulo debe encontrarse entre 0 y 90 grados.\n");
+        printf("\nLos angulos fuera de la ventana segura no son\n");
+        printf("datos invalidos: representan posibles fallas de mision.\n");
         printf("\nVuelva a ingresar los datos.\n");
     }
 }
