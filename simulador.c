@@ -1,4 +1,3 @@
-
 #include "simulador.h"
 
 #include <ctype.h>
@@ -350,6 +349,10 @@ void ejecutar_simulacion_configurada(const ConfigMision *config)
     }
 
     printf("\n%s\n", describir_resultado(estado.resultado));
+
+    if (estado.resultado == MISION_ABORTADA) {
+        puts("Implementados: flujo por eventos");
+    }
 }
 
 /* Mantiene compatibilidad con el menu y las pruebas anteriores. */
