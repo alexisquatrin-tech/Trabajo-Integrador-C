@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 #include "interfaz.h"
@@ -61,6 +60,7 @@ int solicitar_configuracion_mision(ConfigMision *config)
     printf("       CONFIGURACION PERSONALIZADA\n");
     printf("========================================\n");
     printf("Ingrese los valores para la nueva mision.\n");
+    printf("Los valores entre corchetes son referencias.\n");
 
     while (1) {
         temporal = config_consigna();
@@ -68,13 +68,13 @@ int solicitar_configuracion_mision(ConfigMision *config)
         printf("\n--- Datos de la capsula ---\n");
 
         if (!leer_real_positivo(
-                "Masa de la capsula (kg, mayor que 0): ",
+                "Masa de la capsula (kg) [Referencia: 10400]: ",
                 &temporal.masa_kg)) {
             return 0;
         }
 
         if (!leer_real(
-                "Angulo de reingreso (grados, de 0 a 90): ",
+                "Angulo de reingreso (grados, de 0 a 90) [Referencia: 6]: ",
                 0.0, 90.0, &temporal.angulo_grados)) {
             return 0;
         }
@@ -82,13 +82,13 @@ int solicitar_configuracion_mision(ConfigMision *config)
         printf("\n--- Datos del reingreso ---\n");
 
         if (!leer_real_positivo(
-                "Velocidad inicial (m/s, mayor que 0): ",
+                "Velocidad inicial (m/s) [Referencia: 11000]: ",
                 &temporal.velocidad_entrada_ms)) {
             return 0;
         }
 
         if (!leer_real_positivo(
-                "Altitud inicial (m, mayor que la de despliegue): ",
+                "Altitud inicial (m) [Referencia: 120000]: ",
                 &temporal.altitud_entrada_m)) {
             return 0;
         }
@@ -96,20 +96,20 @@ int solicitar_configuracion_mision(ConfigMision *config)
         printf("\n--- Despliegue del paracaidas ---\n");
 
         if (!leer_real(
-                "Velocidad al desplegar el paracaidas (m/s, desde 0): ",
+                "Velocidad al desplegar el paracaidas (m/s) [Referencia: 25]: ",
                 0.0, 1000000000.0,
                 &temporal.velocidad_paracaidas_ms)) {
             return 0;
         }
 
         if (!leer_real_positivo(
-                "Altitud de despliegue (m, mayor que 0): ",
+                "Altitud de despliegue (m) [Referencia: 2500]: ",
                 &temporal.altitud_paracaidas_m)) {
             return 0;
         }
 
         if (!leer_real_positivo(
-                "Duracion del frenado (segundos, mayor que 0): ",
+                "Duracion del frenado (segundos) [Referencia: 400]: ",
                 &temporal.duracion_frenado_s)) {
             return 0;
         }
@@ -117,14 +117,14 @@ int solicitar_configuracion_mision(ConfigMision *config)
         printf("\n--- Datos del amerizaje ---\n");
 
         if (!leer_real(
-                "Velocidad de impacto (m/s, desde 0): ",
+                "Velocidad de impacto (m/s) [Referencia: 8]: ",
                 0.0, 1000000000.0,
                 &temporal.velocidad_impacto_ms)) {
             return 0;
         }
 
         if (!leer_real_positivo(
-                "Hundimiento en el agua (m, mayor que 0): ",
+                "Hundimiento en el agua (m) [Referencia: 1.50]: ",
                 &temporal.hundimiento_m)) {
             return 0;
         }
