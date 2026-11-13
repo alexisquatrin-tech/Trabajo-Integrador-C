@@ -1,3 +1,4 @@
+
 #include "simulador.h"
 
 #include <ctype.h>
