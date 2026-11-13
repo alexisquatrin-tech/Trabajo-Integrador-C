@@ -1,3 +1,4 @@
+
 CC = gcc
 CFLAGS = -std=c17 -Wall -Wextra -Wpedantic -Werror -O2
 CPPFLAGS = -I.
@@ -13,17 +14,20 @@ endif
 APP = build/artemis$(EXE)
 DEMO = build/demo_alexis$(EXE)
 TEST = build/test_alexis$(EXE)
-LOGICA = simulador.c amerizaje.c reingreso.c
 TEST_FLUJO = build/test_flujo$(EXE)
 
+LOGICA = simulador.c amerizaje.c reingreso.c
+INTERFAZ = interfaz.c
+
 .PHONY: all run demo test test-cli check clean
+
 all: $(APP)
 
 build:
 	mkdir -p build
 
-$(APP): main.c $(LOGICA) validaciones.c simulador.h validaciones.h wroz.h | build
-	$(CC) $(CPPFLAGS) $(CFLAGS) main.c $(LOGICA) validaciones.c $(LDFLAGS) $(LDLIBS) -o $@
+$(APP): main.c $(LOGICA) $(INTERFAZ) validaciones.c simulador.h interfaz.h validaciones.h wroz.h | build
+	$(CC) $(CPPFLAGS) $(CFLAGS) main.c $(LOGICA) $(INTERFAZ) validaciones.c $(LDFLAGS) $(LDLIBS) -o $@
 
 $(DEMO): ejemplos/demo_alexis.c $(LOGICA) simulador.h | build
 	$(CC) $(CPPFLAGS) $(CFLAGS) ejemplos/demo_alexis.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
