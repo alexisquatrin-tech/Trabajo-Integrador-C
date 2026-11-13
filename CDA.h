@@ -1,8 +1,7 @@
 #include <stdio.h>
 
-double DA(double vf,double vi,double hi, double hf){
-    double Velocidad  = (vf * vf) - (vi * vi);
-    double Distancia = hi - hf;
-    double Aceleración = Velocidad / (Distancia * 2);
+double DA(double vf,double vi,double tiempo){
+    double Velocidad  = vf - vi;
+    double Aceleración = Velocidad / tiempo;
     return Aceleración / 9.81;
 }
