@@ -1,3 +1,4 @@
+
 """Pruebas del ejecutable real: Python solo es necesario para esta verificacion."""
 from pathlib import Path
 import subprocess
@@ -22,7 +23,7 @@ class MenuTests(unittest.TestCase):
         self.assertIn('Hasta luego.', salida)
 
     def test_tipo_formato_rango_y_recuperacion(self):
-        salida = self.ejecutar('abc\n\n1abc\n1.5\n-1\n3\n0\n')
+        salida = self.ejecutar('abc\n\n1abc\n1.5\n-1\n4\n0\n')
         self.assertGreaterEqual(salida.count('Ingrese'), 6)
         self.assertNotIn('323786.67 N', salida)
         self.assertIn('Hasta luego.', salida)
