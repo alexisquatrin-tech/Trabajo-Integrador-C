@@ -1,4 +1,3 @@
-
 #include "simulador.h"
 
 #include <ctype.h>
@@ -27,6 +26,18 @@ static const char *const TEXTOS_RESULTADO[] = {
 };
 
 #define CANTIDAD(arreglo) (sizeof(arreglo) / sizeof((arreglo)[0]))
+
+/* Historial global de la sesion interactiva. */
+static HistorialSimulaciones historial_global;
+static int historial_global_iniciado = 0;
+
+static void asegurar_historial_global(void)
+{
+    if (!historial_global_iniciado) {
+        iniciar_historial(&historial_global);
+        historial_global_iniciado = 1;
+    }
+}
 
 ConfigMision config_consigna(void)
 {
@@ -306,12 +317,219 @@ static void mostrar_evento(EtapaMision ejecutada,
     }
 }
 
+/* ------------------------------------------------------------------
+ * Parte 4: Historial acotado de simulaciones y reportes comparativos.
+ * ------------------------------------------------------------------ */
+
+void iniciar_historial(HistorialSimulaciones *historial)
+{
+    if (historial == NULL) {
+        return;
+    }
+
+    memset(historial, 0, sizeof *historial);
+    historial->siguiente_id = 1;
+}
+
+int historial_vacio(const HistorialSimulaciones *historial)
+{
+    if (historial == NULL) {
+        return 1;
+    }
+
+    return historial->cantidad == 0;
+}
+
+int historial_lleno(const HistorialSimulaciones *historial)
+{
+    if (historial == NULL) {
+        return 0;
+    }
+
+    return historial->cantidad >= CAPACIDAD_HISTORIAL;
+}
+
+int registrar_simulacion(HistorialSimulaciones *historial,
+                         const ConfigMision *config,
+                         const EstadoCapsula *estado)
+{
+    RegistroSimulacion *reg;
+
+    if (historial == NULL || config == NULL || estado == NULL) {
+        return 0;
+    }
+
+    if (historial_lleno(historial)) {
+        return 0;
+    }
+
+    reg = &historial->registros[historial->cantidad];
+    reg->id = historial->siguiente_id++;
+    reg->config = *config;
+    reg->estado_final = *estado;
+    historial->cantidad++;
+
+    return 1;
+}
+
+void limpiar_historial_global(void)
+{
+    iniciar_historial(&historial_global);
+    historial_global_iniciado = 1;
+}
+
+const HistorialSimulaciones *obtener_historial_global(void)
+{
+    asegurar_historial_global();
+    return &historial_global;
+}
+
+void mostrar_reporte_historial(const HistorialSimulaciones *historial)
+{
+    size_t i;
+    const RegistroSimulacion *r;
+
+    if (historial_vacio(historial)) {
+        puts("\n[Reporte] El historial de simulaciones esta vacio.");
+        return;
+    }
+
+    printf("\n=== REPORTE DE SIMULACIONES (%zu/%d registradas) ===\n",
+           historial->cantidad, CAPACIDAD_HISTORIAL);
+
+    for (i = 0; i < historial->cantidad; i++) {
+        r = &historial->registros[i];
+        printf("\nSimulacion #%d:\n", r->id);
+        printf("  Entrada   : Masa %.1f kg | Angulo %.2f deg | Vel. entrada %.1f m/s\n",
+               r->config.masa_kg,
+               r->config.angulo_grados,
+               r->config.velocidad_entrada_ms);
+        printf("  Resultado : %s\n",
+               describir_resultado(r->estado_final.resultado));
+
+        if (r->estado_final.reingreso.desaceleracion_g > 0.0) {
+            printf("  Reingreso : Trabajo rozamiento %.2f J | Desaceleracion %.2f g\n",
+                   r->estado_final.reingreso.trabajo_rozamiento_j,
+                   r->estado_final.reingreso.desaceleracion_g);
+        }
+
+        if (r->estado_final.amerizaje.energia_impacto_j > 0.0) {
+            printf("  Amerizaje : Vel. impacto %.2f m/s | Energia %.2f J | Fuerza agua %.2f N (%.2f x peso)\n",
+                   r->estado_final.velocidad_impacto_ms,
+                   r->estado_final.amerizaje.energia_impacto_j,
+                   r->estado_final.amerizaje.fuerza_agua_n,
+                   r->estado_final.amerizaje.multiplo_peso);
+        }
+    }
+}
+
+void mostrar_comparacion_simulaciones(const HistorialSimulaciones *historial)
+{
+    size_t i;
+    size_t exitosas = 0;
+    size_t fallidas = 0;
+    size_t abortadas = 0;
+    const RegistroSimulacion *menor_g = NULL;
+    const RegistroSimulacion *mayor_g = NULL;
+    const RegistroSimulacion *menor_impacto = NULL;
+    const RegistroSimulacion *mayor_fuerza = NULL;
+    const RegistroSimulacion *r;
+
+    if (historial_vacio(historial)) {
+        puts("\n[Comparacion] No hay simulaciones registradas para comparar.");
+        return;
+    }
+
+    if (historial->cantidad < 2) {
+        puts("\n[Comparacion] Se necesitan al menos 2 simulaciones para comparar resultados.");
+        return;
+    }
+
+    for (i = 0; i < historial->cantidad; i++) {
+        r = &historial->registros[i];
+
+        if (r->estado_final.resultado == MISION_EXITOSA) {
+            exitosas++;
+        } else if (r->estado_final.resultado == MISION_ABORTADA) {
+            abortadas++;
+        } else {
+            fallidas++;
+        }
+
+        if (r->estado_final.reingreso.desaceleracion_g > 0.0) {
+            if (menor_g == NULL ||
+                r->estado_final.reingreso.desaceleracion_g <
+                menor_g->estado_final.reingreso.desaceleracion_g) {
+                menor_g = r;
+            }
+            if (mayor_g == NULL ||
+                r->estado_final.reingreso.desaceleracion_g >
+                mayor_g->estado_final.reingreso.desaceleracion_g) {
+                mayor_g = r;
+            }
+        }
+
+        if (r->estado_final.amerizaje.energia_impacto_j > 0.0) {
+            if (menor_impacto == NULL ||
+                r->estado_final.amerizaje.energia_impacto_j <
+                menor_impacto->estado_final.amerizaje.energia_impacto_j) {
+                menor_impacto = r;
+            }
+            if (mayor_fuerza == NULL ||
+                r->estado_final.amerizaje.fuerza_agua_n >
+                mayor_fuerza->estado_final.amerizaje.fuerza_agua_n) {
+                mayor_fuerza = r;
+            }
+        }
+    }
+
+    puts("\n=== COMPARACION ENTRE SIMULACIONES ===");
+    printf("Total analizadas: %zu (Exitosas: %zu | Fallidas: %zu | Abortadas: %zu)\n",
+           historial->cantidad, exitosas, fallidas, abortadas);
+
+    if (menor_g != NULL && mayor_g != NULL) {
+        printf("- Menor desaceleracion en reingreso : Sim #%d con %.2f g (angulo %.2f deg)\n",
+               menor_g->id,
+               menor_g->estado_final.reingreso.desaceleracion_g,
+               menor_g->config.angulo_grados);
+        printf("- Mayor desaceleracion en reingreso : Sim #%d con %.2f g (angulo %.2f deg)\n",
+               mayor_g->id,
+               mayor_g->estado_final.reingreso.desaceleracion_g,
+               mayor_g->config.angulo_grados);
+    }
+
+    if (menor_impacto != NULL && mayor_fuerza != NULL) {
+        printf("- Menor energia de impacto en agua  : Sim #%d con %.2f J (vel. %.2f m/s)\n",
+               menor_impacto->id,
+               menor_impacto->estado_final.amerizaje.energia_impacto_j,
+               menor_impacto->estado_final.velocidad_impacto_ms);
+        printf("- Mayor fuerza de frenado en agua   : Sim #%d con %.2f N (hundimiento %.2f m)\n",
+               mayor_fuerza->id,
+               mayor_fuerza->estado_final.amerizaje.fuerza_agua_n,
+               mayor_fuerza->config.hundimiento_m);
+    }
+}
+
+void mostrar_reporte_global(void)
+{
+    asegurar_historial_global();
+    mostrar_reporte_historial(&historial_global);
+}
+
+void mostrar_comparacion_global(void)
+{
+    asegurar_historial_global();
+    mostrar_comparacion_simulaciones(&historial_global);
+}
+
 /* Simulacion con configuracion personalizada o predeterminada. */
 void ejecutar_simulacion_configurada(const ConfigMision *config)
 {
     ConfigMision configuracion;
     EstadoCapsula estado;
     EtapaMision ejecutada;
+
+    asegurar_historial_global();
 
     if (config == NULL || !config_valida(config)) {
         puts("\nNo se puede iniciar la simulacion: configuracion invalida.");
@@ -353,6 +571,13 @@ void ejecutar_simulacion_configurada(const ConfigMision *config)
 
     if (estado.resultado == MISION_ABORTADA) {
         puts("Implementados: flujo por eventos");
+    }
+
+    if (registrar_simulacion(&historial_global, &configuracion, &estado)) {
+        printf("Simulacion guardada en el historial (%zu/%d).\n",
+               historial_global.cantidad, CAPACIDAD_HISTORIAL);
+    } else {
+        puts("Aviso: Historial lleno. No se pudo registrar esta simulacion.");
     }
 }
 
