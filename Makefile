@@ -1,3 +1,4 @@
+# Proyecto Artemis - Compilacion y pruebas
 CC = gcc
 CFLAGS = -std=c17 -Wall -Wextra -Wpedantic -Werror -O2
 CPPFLAGS = -I.
