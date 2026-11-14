@@ -1,10 +1,12 @@
-# Plan de trabajo del grupo
+# Distribución del trabajo del grupo
 
-Estado: integración funcional revisada el 14/11/2026; pendientes actuales en [revision-entrega.md](revision-entrega.md). Los puntos siguientes conservan la distribución de responsabilidades; varias tareas ya están implementadas. Responsabilidades confirmadas: Ezequiel (Navarro Ezequiel Leandro, legajo 31372), parte 1; Alexis (Quatrin Oliver Alexis Javier, legajo 27880), parte 2; Nico (Julian Nicolas Alvarez Carruega, legajo 29342), parte 3; Ignacio (Juan Ignacio Pabon, legajo 28583), parte 4. Alex (Merlo Alex Gabriel, legajo 24518), distinto de Alexis, realiza la parte 5: historial, reportes y compilación. Ignacio conserva el menú y las validaciones. Los cinco integrantes tienen sus datos y responsabilidades registrados; pertenecen al Grupo C 34, comisión k1.4, según lo informado por el usuario.
+Documento de organización original. Los módulos descritos están integrados; las listas siguientes conservan los criterios utilizados para distribuir y revisar el trabajo. Estado final y confirmación del equipo en [revision-entrega.md](revision-entrega.md).
+
+Estado: integración funcional revisada el 14/11/2026; cierre y evidencia en [revision-entrega.md](revision-entrega.md). Los puntos siguientes conservan la distribución de responsabilidades; varias tareas ya están implementadas. Responsabilidades confirmadas: Ezequiel (Navarro Ezequiel Leandro, legajo 31372), parte 1; Alexis (Quatrin Oliver Alexis Javier, legajo 27880), parte 2; Nico (Julian Nicolas Alvarez Carruega, legajo 29342), parte 3; Ignacio (Juan Ignacio Pabon, legajo 28583), parte 4. Alex (Merlo Alex Gabriel, legajo 24518), distinto de Alexis, realiza la parte 5: historial, reportes y compilación. Ignacio conserva el menú y las validaciones. Los cinco integrantes tienen sus datos y responsabilidades registrados; pertenecen al Grupo C 34, comisión k1.4, según lo informado por el usuario.
 
 ## 1. Reingreso y frenado — Ezequiel
 
-Revisar la implementación provisional de `reingreso.c` que Nico agregó para probar el flujo con los incisos a/b. Acordar en `simulador.h` las estructuras y prototipos antes de programar.
+`reingreso.c` integra los incisos a/b con el cálculo energético de `wroz.h`. Los contratos se declaran en `simulador.h` y la interpretación física en [modelo-fisico.md](modelo-fisico.md).
 
 - Incluir masa, rapidez inicial/final, altitud inicial/final y duración del intervalo elegido.
 - Trabajo atmosférico, con gravedad: `Wroz = (m/2)*(vf² - vi²) - m*g*(hi - hf)`.
@@ -13,17 +15,17 @@ Revisar la implementación provisional de `reingreso.c` que Nico agregó para pr
 - Rechazar duraciones no positivas, valores no finitos y estados fuera del modelo. No elegir límites arbitrarios sin explicarlos.
 - Probar resultados manuales, coherencia de unidades, signos y errores.
 
-Terminado cuando funciones, pruebas y explicación estén revisadas e integradas. La ambigüedad del intervalo de 400 s se debe confirmar con la cátedra.
+Terminado cuando funciones, pruebas y explicación estén revisadas e integradas. El modelo usa los 400 s para la reducción completa de rapidez; ese supuesto está documentado.
 
 ## 2. Amerizaje y ángulo — Alexis
 
 `amerizaje.c` y su sección de `simulador.h` ya implementados; `tests/test_alexis.c` pasa 55 comprobaciones. Fórmulas y supuestos en `parte-alexis.md`.
 
-La entrada personalizada, los reportes y las pruebas del flujo completo están integrados. Alexis registró pruebas personales en README; sigue pendiente la comprensión integral para defensa y el acuerdo final del modelo. No volver a definir las mismas funciones en `simulador.c`.
+La entrada personalizada, los reportes y las pruebas del flujo completo están integrados. Alexis registró pruebas personales en README; el equipo confirmó sus verificaciones finales. No volver a definir las mismas funciones en `simulador.c`.
 
 ## 3. Flujo y estados — Nico
 
-El flujo corregido de Nico ya está integrado en `simulador.c`, con datos de referencia y personalizados. Pasan 67 comprobaciones del flujo y 16 pruebas del menú; reportes y comparación conectados.
+El flujo corregido de Nico ya está integrado en `simulador.c`, con datos de referencia y personalizados. Pasan 67 comprobaciones del flujo y 21 pruebas del menú; reportes y comparación conectados.
 
 - Proponer estado y etapas: configuración, reingreso, paracaídas, amerizaje y reporte.
 - Permitir avance interactivo por eventos; coordinar cálculo y actualización por punteros.
@@ -65,6 +67,6 @@ Terminado cuando los resultados se almacenan, recuperan y muestran correctamente
 3. Desarrollar cada parte con pruebas y commits reales.
 4. Integrar temprano un recorrido por eventos con todas las partes disponibles.
 5. Probar ejecución exitosa, entradas erróneas, fronteras y repetición.
-6. Completar README y registro de IA, grabar video de hasta 5 minutos y practicar defensa cruzada.
+6. README y registro de IA actualizados; video terminado enlazado al inicio del README. Entregar ambos enlaces por aula virtual y sostener la preparación para defensa.
 
 Cada persona escribe la explicación de su parte. Todos revisan el programa completo y deben poder explicar funciones, estructuras, punteros, arreglos y flujo.

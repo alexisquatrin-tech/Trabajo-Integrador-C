@@ -1,41 +1,29 @@
-# Requisitos de la consigna y evidencia
+# Requisitos de la consigna y evidencia de entrega
 
-Fuente: documento original «Trabajo Final Integrador C.docx», aportado por el usuario y leído completo en la revisión del 14/11/2026. Lista de seguimiento del escenario 4; no sustituye el documento de la cátedra. «Parcial» no significa que el requisito esté aprobado.
+Fuente: «Trabajo Final Integrador C.docx», secciones 3 a 9 y escenario 4. Cierre del 14/11/2026. El equipo informó «ya verificamos todo» al finalizar la preparación. Se distingue esa confirmación de las comprobaciones ejecutadas por la herramienta.
 
-| Requisito | Estado actual | Evidencia o trabajo pendiente |
-| --- | --- | --- |
-| Grupo de 3 a 5, conformado en aula virtual | Pendiente de verificación | Los cinco nombres y legajos están registrados. Grupo C 34, comisión k1.4, informados por el usuario; falta verificar el alta de los cinco integrantes en aula virtual. |
-| C nativo por consola | Base verificada en Linux | `make run`; sin servicios externos. Windows tiene un registro personal de Alexis en README; esta revisión se ejecutó en Linux. |
-| Condicionales y repeticiones | Presentes en la base | Menú, validaciones y recorrido de ángulos. Flujo por eventos integrado. |
-| Modularización .c/.h | Presente en la base | `main.c`, `simulador.h/.c`, `validaciones.h/.c`, `amerizaje.c`. |
-| Estructuras y punteros | Presentes | Datos y resultados de amerizaje y actualización por puntero. |
-| Arreglos funcionales | Implementados y probados | Historial acotado de cinco registros, consulta y comparación desde el menú. |
-| Validación exhaustiva y manejo de errores | Casos representativos probados | Enteros/reales, rangos, relaciones, fin de entrada, líneas largas y de capacidad exacta, NUL, NaN/infinito, desbordamientos y capacidad. No demuestra ausencia de todos los errores posibles. |
-| Menú principal | Integrado | Referencia, parámetros, personalizada, historial, comparación y salida. |
-| Simulación por turnos o eventos | Implementada con datos fijos y personalizados | Flujo de Nico integrado: Enter avanza, 0 aborta. |
-| Reportes finales de desempeño | Integrados y probados | Opción 4: entradas/resultados; opción 5: comparación, incluyendo energía cero. |
-| Escenario 4 y variación de entradas | Parcial | Entrada personalizada y a/b/c/d conectados al flujo; falta revisión estudiantil definitiva de a/b. |
-| Inciso a: trabajo atmosférico | Provisional | Adaptador agregado por Nico; revisar con Ezequiel. |
-| Inciso b: desaceleración y g | Provisional | Revisar con Ezequiel el supuesto del intervalo de 400 s. |
-| Inciso c: fuerza del agua y peso | Implementado y probado | `amerizaje.c`, 323.786,67 N y 3,1769 con valores base; Registro de verificación personal de Alexis en README; falta defensa integral. |
-| Inciso d: ventana y consecuencias | Implementado y probado | Ventana inclusiva y mensajes cualitativos. |
-| Repositorio público | Configuración externa por verificar | El propietario comprueba visibilidad en GitHub. |
-| Historial progresivo de los cinco | Evidencia local presente | Git registra autores de los cinco integrantes; confirmar identidad, participación real y revisión compartida. No se evalúa equidad contando commits. |
-| Ramas y Pull Requests | Recomendación preparada | `CONTRIBUTING.md` y plantilla de PR. |
-| Makefile o scripts | Implementado y probado | Compilación estricta de ejecutables separados. |
-| README completo | Actualizado, datos académicos pendientes | Flujo, reglas, Grupo C 34 y comisión k1.4 documentados; resta completar el registro de IA únicamente con usos y verificaciones reales. |
-| Registro de IA | En curso | README con consultas, tareas y validación de la herramienta; cada estudiante debe completar su revisión. |
-| Video de hasta 5 minutos | Pendiente | Aparición y voz real de todos, arquitectura, ejecución exitosa y errores. |
-| Defensa individual del sistema | Pendiente de preparación | Todos deben comprender todo el código, no solo su módulo. |
-| Entrega por aula virtual | Pendiente | Confirmar fecha y procedimiento en aula; no se especifica una fecha en el PDF. |
+| Requisito | Estado y evidencia |
+| --- | --- |
+| Grupo de 3 a 5 e inscripción en aula virtual | Cinco integrantes y comisión registrados en README; verificación académica confirmada por el equipo. |
+| C nativo por consola | Compilación y ejecución verificadas en Linux; registro personal previo de Alexis en Windows en README. |
+| Condicionales y repeticiones | Menú, lectura de entradas, recorrido por eventos y reportes. |
+| Modularización | `main.c`, `simulador.c/.h`, `interfaz.c/.h`, `validaciones.c/.h`, `reingreso.c` y `amerizaje.c`. |
+| Arreglos, estructuras y punteros | Historial de cinco estructuras, actualización por punteros y parámetros `const`. |
+| Validaciones y errores | Pruebas de tipo, rango, relaciones, EOF, líneas largas, NUL, NaN, infinito, desbordamientos y capacidad. |
+| Menú, eventos y reportes | Referencia, personalizada, etapas, abortos, consulta de historial y comparación. |
+| Escenario 4 con entradas variables | Nueve magnitudes configurables y cálculos a/b/c/d integrados. |
+| a: trabajo atmosférico | Diferencia de energía mecánica; incluye el trabajo de la gravedad. |
+| b: desaceleración y g | Promedio entre velocidades de entrada y despliegue; supuesto del intervalo de 400 s explicitado en `modelo-fisico.md`. |
+| c: fuerza del agua y peso | Incluye gravedad: 323786,67 N y 3,1769 veces el peso con datos base. |
+| d: ventana y consecuencias | Límites 5,5° y 7,0° incluidos; rebote o desaceleración excesiva fuera de la ventana. |
+| Repositorio público | Visibilidad pública verificada en GitHub. Enlace al inicio de README. |
+| Historial progresivo | Múltiples commits con autores de los cinco integrantes; se conserva el historial real. |
+| Ramas y PR | Recomendados por la consigna; guía en `CONTRIBUTING.md`. |
+| Makefile | Compila programa, demo y pruebas con fuentes explícitas y advertencias como errores. |
+| README | Integrantes, comisión, escenario, reglas, funcionamiento, compilación, ejecución, arquitectura y registro de IA. |
+| Registro de IA | Herramienta, consultas, tareas, adaptaciones y validaciones conocidas; distingue evidencia automatizada y personal. No se inventan consultas no conservadas. |
+| Video | Terminado y verificado según confirmación del equipo: https://youtu.be/oiT_YOoU5U0. Máximo 5 minutos, aparición y voz real de todos, arquitectura, éxito y entradas erróneas exigidos por la consigna. No inspeccionado audiovisualmente por Codex. |
+| Preparación de defensa | Verificaciones finales confirmadas por el equipo; la defensa individual corresponde a los estudiantes. |
+| Entrega digital | Enviar enlaces al repositorio y al video por aula virtual. El envío no se realiza desde este repositorio. |
 
-## Condiciones para considerar lista la entrega
-
-- Compilar desde un clon limpio y ejecutar el flujo completo con entradas personalizadas.
-- Verificar un caso exitoso y escenarios peligrosos sin inventar modelos no documentados.
-- Probar entradas mal formadas, rangos, límites, fin de entrada e historial lleno.
-- Completar y revisar los datos y documentos del equipo.
-- Confirmar visibilidad pública y aportes progresivos de todos.
-- Revisar el video y la comprensión compartida antes de enviar el enlace por aula virtual.
-
-La evidencia actual y los límites de esta revisión figuran en [revision-entrega.md](revision-entrega.md).
+La consigna no exige persistencia del historial a disco, archivo `reportes.c`, vidas ni puntajes. La aprobación académica corresponde a la cátedra. Evidencia técnica y alcance en [revision-entrega.md](revision-entrega.md).

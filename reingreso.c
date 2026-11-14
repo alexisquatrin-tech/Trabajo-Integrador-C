@@ -4,12 +4,13 @@
 #include <math.h>
 #include <stddef.h>
 
-/* PROVISORIO (Nico): implementacion minima de calcular_reingreso() para
- * poder probar el flujo completo. Reutiliza calcularWroz() de wroz.h.
- * Navarro (incisos a/b) puede reemplazar este archivo conservando la firma
- * declarada en simulador.h.
- * Supuesto del inciso b: toda la reduccion de rapidez ocurre en duracion_s,
- * asi que la desaceleracion media es (vi - vf) / duracion_s. */
+/* Reingreso (incisos a/b): integra el calculo energetico de wroz.h.
+ * El flujo fue integrado originalmente por Nico; se conservan sus aportes.
+ * Modelo: masa y g constantes. El trabajo atmosferico es Delta(K + U).
+ * Se toma duracion_s como el intervalo completo entre vi y vf; se informa
+ * la magnitud positiva de la desaceleracion, (vi - vf) / duracion_s.
+ * Es un promedio, no una aceleracion maxima ni una trayectoria resuelta.
+ * Justificacion y limites: docs/modelo-fisico.md. */
 int calcular_reingreso(const DatosReingreso *datos,
                        ResultadoReingreso *resultado)
 {

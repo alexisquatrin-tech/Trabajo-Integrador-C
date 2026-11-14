@@ -10,4 +10,4 @@ El historial de `simulador.c/.h` admite cinco registros finalizados por sesión,
 
 Pruebas: `make all build/demo_alexis check`. Pasan 55 comprobaciones de amerizaje, 67 de flujo/reingreso, las pruebas de historial y 21 pruebas de menú, incluidas carga personalizada, riesgos, cancelación, EOF, desbordamientos, recuperación de entradas, historial lleno y energía cero.
 
-El modelo no calcula trayectoria ni dinámica de paracaídas. La rapidez de impacto es una entrada y el umbral de 8 m/s es una regla simplificada. El alcance del intervalo de 400 s requiere revisión de Ezequiel y, si corresponde, consulta a la cátedra. Ver [revisión de entrega](revision-entrega.md).
+El modelo no calcula trayectoria ni dinámica de paracaídas. La rapidez de impacto es una entrada y el umbral de 8 m/s es una regla simplificada. Se interpreta el intervalo de 400 s como la reducción completa entre las velocidades de entrada y despliegue; ver [modelo-fisico.md](modelo-fisico.md). Ver [revisión de entrega](revision-entrega.md).

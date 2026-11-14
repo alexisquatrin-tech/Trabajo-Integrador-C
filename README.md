@@ -2,7 +2,15 @@
 
 Trabajo Final Integrador de **Algoritmos y Estructuras de Datos**, Ingeniería en Sistemas de Información, UTN Facultad Regional Resistencia. Programa en C, nativo por consola.
 
-> **Estado al 14 de noviembre de 2026:** menú, configuración personalizada, flujo por eventos, cálculos e historial/reportes integrados y probados en Linux. La entrega todavía requiere revisión del modelo a/b y completar las verificaciones académicas del equipo. Ver [revisión y pendientes](docs/revision-entrega.md).
+## Entrega final
+
+- **Repositorio público:** https://github.com/alexisquatrin-tech/Trabajo-Integrador-C
+- **Video terminado e informado por el equipo:** https://youtu.be/oiT_YOoU5U0
+- **Grupo C 34 — Comisión k1.4.**
+
+Código, configuración personalizada, simulación por eventos, historial y reportes integrados. La versión publicada `8318f81` se compiló desde un clon limpio en Linux: 55 comprobaciones de amerizaje, 67 de flujo/reingreso, pruebas de historial y 21 pruebas de menú aprobadas. El cierre documental conserva las fórmulas y explica sus supuestos en [modelo físico](docs/modelo-fisico.md). Ver [requisitos y evidencias](docs/requisitos.md) y [revisión de entrega](docs/revision-entrega.md).
+
+El equipo confirmó las verificaciones finales el 14/11/2026. La entrega formal se realiza en el aula virtual con los enlaces al repositorio y al video. La confirmación del video y de los aspectos académicos fue informada por el equipo; la revisión automatizada se concentró en código, pruebas y documentación.
 
 ## Equipo y comisión
 
@@ -20,7 +28,7 @@ Comisión: **k1.4**.
 
 | Responsable | Parte | Archivo principal / entrega |
 | --- | --- | --- |
-| Navarro Ezequiel Leandro | Reingreso y frenado: incisos a/b | `reingreso.c` (provisional; revisar), pruebas y explicación física |
+| Navarro Ezequiel Leandro | Reingreso y frenado: incisos a/b | `reingreso.c`, `wroz.h` y [explicación física](docs/modelo-fisico.md) |
 | **Quatrin Oliver Alexis Javier (Alexis)** | Amerizaje y ángulo: incisos c/d | `amerizaje.c`, pruebas y explicación física |
 | Julian Nicolas Alvarez Carruega (Nico) | Flujo, estados y eventos | `simulador.c`, contratos en `simulador.h` |
 | Juan Ignacio Pabon | Entradas, validaciones y menú | `validaciones.c/.h` y `main.c` |
@@ -28,7 +36,7 @@ Comisión: **k1.4**.
 
 Cada integrante programa, prueba y documenta su aporte. README, revisión, Git, video y preparación del coloquio son responsabilidades compartidas.
 
-## Escenario y modelo propuesto
+## Escenario y modelo físico
 
 Orion regresa a la Tierra y debe disipar energía antes de amerizar. Valores de referencia de la consigna:
 
@@ -41,7 +49,7 @@ Orion regresa a la Tierra y debe disipar energía antes de amerizar. Valores de 
 | Rapidez de impacto / hundimiento | 8 m/s / 1,50 m |
 | Ventana segura del ángulo de entrada | 5,5° a 7,0°, inclusive |
 
-Se propone un simulador por eventos: configurar datos, evaluar reingreso, avanzar a paracaídas, evaluar amerizaje y emitir/guardar el reporte. El usuario podrá repetir simulaciones y compararlas. **El recorrido reingreso → paracaídas → amerizaje funciona con datos de referencia y personalizados; el historial conserva hasta cinco simulaciones por sesión**; los modelos y reglas definitivos deben acordarse en equipo. No agregar vidas, puntajes o límites estructurales como si fueran requisitos de la cátedra.
+El simulador funciona por eventos: configurar datos, evaluar reingreso, avanzar a paracaídas, evaluar amerizaje y emitir/guardar el reporte. El usuario puede repetir simulaciones y compararlas. **El recorrido reingreso → paracaídas → amerizaje funciona con datos de referencia y personalizados; el historial conserva hasta cinco simulaciones por sesión**; los supuestos y reglas aplicados se detallan en [modelo físico](docs/modelo-fisico.md).
 
 Modelo actual c/d: movimiento vertical de detención, masa y gravedad constantes, fuerza del agua promediada respecto del desplazamiento. Incluye el trabajo del peso: `Fagua = m*g + m*v²/(2*d)`. Con los datos de referencia: **323.786,67 N**, **3,1769 veces el peso**. El ángulo se clasifica cualitativamente; no se calcula trayectoria ni temperatura y la ventana no garantiza toda la misión. [Fórmulas y límites](docs/parte-alexis.md).
 
@@ -129,9 +137,9 @@ cd "/c/Users/TU_USUARIO/Downloads/Trabajo-Integrador-C-main"
 **5. Ejecutar desde esa terminal.** Usar estos comandos para compilar todos los módulos necesarios, con el Makefile del equipo:
 
 ```sh
-make run                  # Menú interactivo: 1 simulación, 2 estado, 0 salir
+make run                  # Menú: referencia, personalizada, historial y comparación
 make demo                 # Demostración directa con los datos del enunciado
-make test                 # Pruebas C del módulo de Alexis
+make test                 # Pruebas C de amerizaje, flujo e historial
 make check PYTHON=python  # Pruebas C y pruebas automáticas del menú
 ```
 
@@ -160,11 +168,11 @@ Resultados actuales: `make check` pasa 55 comprobaciones de amerizaje, 67 de flu
 ```text
 main.c                 menú e inicialización; una sola función main
 interfaz.c/.h          guía, parámetros y configuración personalizada
-validaciones.c/.h      lectura segura de la opción del menú; ampliar para datos
+validaciones.c/.h      lectura segura de enteros, reales y líneas
 simulador.h            constantes, structs, enum y contratos compartidos
 simulador.c            eventos, pausas, historial y reportes
 amerizaje.c            cálculos y clasificación de Alexis (c/d)
-reingreso.c            cálculos a/b provisionales; revisión por Ezequiel
+reingreso.c            cálculos a/b; supuestos en docs/modelo-fisico.md
 CDA.h                  aporte previo de aceleración, no usado por el Makefile
 wroz.h                 cálculo energético usado por reingreso.c
 ```
@@ -174,7 +182,7 @@ flowchart TD
     M[main: menú] --> V[validaciones: lectura segura]
     M --> S[simulador: coordinación]
     S --> A[amerizaje: c/d implementados]
-    S --> R[reingreso: a/b provisionales]
+    S --> R[reingreso: cálculos a/b]
     M --> H[consulta y comparación de historial]
     S --> H
 ```
@@ -205,7 +213,7 @@ Herramienta: ChatGPT/Codex. Registro del 3 de noviembre de 2026.
 
 Validación realizada por la herramienta: compilación C17 con advertencias tratadas como errores, ejecución de la demo y 55 comprobaciones automáticas aprobadas. Se incluyó el trabajo del peso para distinguir fuerza del agua de fuerza neta; se documentaron los supuestos físicos y los límites del modelo. Se separaron las funciones de cálculo de la entrada/salida para integrarlas con el resto del equipo.
 
-Revisión y adaptación por los estudiantes: **en curso**. Las verificaciones realizadas por Alexis se detallan a continuación; cada compañero debe completar su propio registro. La ejecución de pruebas no acredita por sí sola la comprensión integral del código.
+Las verificaciones personales comunicadas por Alexis se detallan a continuación. Este registro reúne los usos de IA conocidos y distingue las pruebas realizadas por la herramienta de las ejecutadas por estudiantes. No se atribuyen usos ni revisiones personales no informados. La ejecución de pruebas no acredita por sí sola la comprensión integral del código.
 
 
 ### Preparación de la base compartida
@@ -229,14 +237,14 @@ Quatrin Oliver Alexis Javier ejecutó el proyecto en Windows, desde MSYS2 UCRT64
 - **Validación manual del menú:** ingresó `abc` y `9`; el programa rechazó ambas entradas y volvió a solicitar una opción. Inició una misión, la abortó con `0` en la primera pausa, comprobó el regreso al menú sin mensaje de éxito y salió normalmente con `0`.
 - **Contraste con calculadora:** para masa 10400 kg, rapidez 8 m/s, hundimiento 1.50 m y gravedad 9.80 m/s², verificó energía cinética de 332800 J, peso de 101920 N, fuerza promedio del agua de 323786.6667 N y relación fuerza/peso de 3.176870748. Corrigió un error inicial de operación al separar la división por la distancia de la suma del peso.
 
-Consultas de esta revisión: «sigamos con mi registro de uso de ia, vamos con las pruebas de mi parte», «vamos con la demo primero» y «avancemos con las pruebas que debo realizar [...] sin vs code». ChatGPT/Codex orientó los comandos, ayudó a configurar la terminal y localizar el proyecto, propuso las secuencias de prueba y explicó la corrección del cálculo manual. Alexis ejecutó los comandos en su equipo y compartió los resultados. Estas acciones verifican los casos indicados; no significan que se hayan probado todas las entradas posibles ni completado la defensa de cada línea de código. La justificación física de la fórmula y la comprensión integral siguen en preparación.
+Consultas de esta revisión: «sigamos con mi registro de uso de ia, vamos con las pruebas de mi parte», «vamos con la demo primero» y «avancemos con las pruebas que debo realizar [...] sin vs code». ChatGPT/Codex orientó los comandos, ayudó a configurar la terminal y localizar el proyecto, propuso las secuencias de prueba y explicó la corrección del cálculo manual. Alexis ejecutó los comandos en su equipo y compartió los resultados. Estas acciones verifican los casos indicados; no significan que se hayan probado todas las entradas posibles ni completado la defensa de cada línea de código. Este registro describe las actividades comunicadas en esa fecha; la confirmación final del equipo se registra en la sección de cierre.
 
 
 ## Registro detallado del uso de Inteligencia Artificial
 
 | Actividad                                              | Prompts y consultas realizadas                                                                                                                                                                                                                                           | Aporte de la IA y solución aplicada                                                                                                                                                                                                                                                                                                                                             |
 | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                                                        |                                                                                                                                                                                                                                                                          | Se explicó la importancia de coordinar el menú con las funciones y módulos desarrollados por los demás integrantes. Se revisó cómo conectar el menú principal con la función `ejecutar_simulacion()` sin duplicar la lógica de otros módulos.                                                                                                                                   |
+| **Coordinación del menú y los módulos** | Consulta literal no conservada en el registro aportado. | Se explicó la importancia de coordinar el menú con las funciones y módulos desarrollados por los demás integrantes. Se revisó cómo conectar el menú principal con la función `ejecutar_simulacion()` sin duplicar la lógica de otros módulos.                                                                                                                                   |
 | **Desarrollo de las funciones de validación**          | «Tenemos así organizado, como muestra en la primer imagen y en la segunda muestra el error».<br><br>También se compartió el contenido de `validaciones.c` para revisar por qué fallaba al integrarlo al repositorio.                                                     | Se detectaron problemas relacionados con la organización del archivo de validaciones y la inclusión de una función `main()` de prueba. Se separaron las declaraciones de `validaciones.h` de las implementaciones de `validaciones.c` y se organizaron las funciones `leer_entero()`, `leer_real()` y `leer_real_positivo()`.                                                   |
 | **Corrección de errores de compilación e integración** | Se compartieron capturas de la estructura del repositorio y mensajes de error para identificar por qué fallaba la integración de `validaciones.c`.<br><br>«Dale seguimos entonces».                                                                                      | Se revisaron los archivos involucrados, las declaraciones y definiciones de funciones y la estructura del proyecto. Se realizaron correcciones para evitar conflictos de vinculación y mantener una única función `main()`.                                                                                                                                                     |
 | **Configuración del entorno de desarrollo**            | Se consultó cómo instalar las herramientas necesarias para compilar desde Visual Studio Code en Windows. Durante el proceso se fueron comprobando los comandos de GCC y Make y se consultó cómo resolver el problema de reconocimiento del comando `make` en PowerShell. | Se indicó cómo instalar MSYS2, GCC y Make, configurar el PATH y comprobar las instalaciones. Se identificó que debía utilizarse `mingw32-make` en lugar de `make` desde PowerShell.                                                                                                                                                                                             |
@@ -251,3 +259,12 @@ Codex revisó el código y la lista local de requisitos; luego cotejó el docume
 
 
 Nueva revisión de `main` solicitada el 14/11/2026: «Revisá la última versión de `main` del repositorio `alexisquatrin-tech/Trabajo-Integrador-C` contra el PDF adjunto». Codex verificó el remoto en `b024e48`, preservó los cambios locales anteriores y cotejó la consigna disponible como DOCX. Reprodujo y corrigió rechazos de líneas de capacidad exacta y aceptación de prefijos con NUL, compartió la lectura segura entre menú y pausas y actualizó el Makefile. Ejecutó compilación estricta, 55 comprobaciones de amerizaje, 67 de flujo/reingreso, pruebas de historial y 21 pruebas de consola, además de la misma suite con AddressSanitizer/UndefinedBehaviorSanitizer y la demo. Todos esos controles pasaron en Linux. Son verificaciones de la herramienta, no de los estudiantes. No se agregaron testimonios de revisión personal ni se modificaron los registros históricos del grupo.
+
+
+### Cierre para entrega — 14 de noviembre de 2026
+
+Herramienta: ChatGPT/Codex. Consultas: «ya tenemos el video terminado [...] que nos faltaria para la entrega final? revisa el repo que le falta. constata con las consignas del trabajo» y «completa el repo con lo que falta, ya tenemos que entregar».
+
+La herramienta cotejó el DOCX original con el repositorio público, verificó `main` en `8318f81` y compiló un clon limpio en Linux. Pasaron 55 comprobaciones de amerizaje, 67 de flujo/reingreso, las pruebas de historial y 21 pruebas de menú; también ejecutó una misión exitosa y consultó su reporte. Agregó el video informado por el usuario, documentó las fórmulas y el supuesto de los 400 s, actualizó el estado de requisitos y corrigió textos de planificación desactualizados. Se conservaron los cálculos y los aportes del grupo. La validación de este cierre se detalla en `docs/revision-entrega.md`. No se verificó el contenido ni la duración del video, ni se atribuyó aprobación personal a integrantes sin evidencia.
+
+Confirmación posterior del usuario: «ya verificamos todo». Se registra como confirmación del equipo sobre las verificaciones finales, incluido el video y los aspectos académicos; no como una inspección audiovisual o del aula virtual realizada por Codex. La entrega por aula virtual debe efectuarse con los enlaces indicados al inicio.
