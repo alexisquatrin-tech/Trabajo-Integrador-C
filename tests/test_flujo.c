@@ -1,6 +1,7 @@
 #include "simulador.h"
 
 #include <math.h>
+#include <float.h>
 #include <stdio.h>
 
 static int correctas = 0;
@@ -169,8 +170,36 @@ static void prueba_punteros_nulos_y_textos(void)
     VERIFICAR(describir_resultado((ResultadoMision)99) != NULL);
 }
 
+
+static void prueba_reingreso_limites(void)
+{
+    const DatosReingreso base = {10400.0, 11000.0, 120000.0, 25.0, 2500.0, 400.0};
+    DatosReingreso d = base;
+    ResultadoReingreso r = {123.0, 456.0, 789.0};
+    VERIFICAR(calcular_reingreso(&d, &r) == 1);
+    VERIFICAR(cercano(r.trabajo_rozamiento_j, -641172350000.0, 0.01));
+    VERIFICAR(cercano(r.desaceleracion_ms2, 27.4375, 1e-9));
+    d.duracion_s = 0.0;
+    VERIFICAR(calcular_reingreso(&d, &r) == 0);
+    VERIFICAR(cercano(r.desaceleracion_ms2, 27.4375, 1e-9));
+    d = base; d.velocidad_final_ms = d.velocidad_inicial_ms;
+    VERIFICAR(calcular_reingreso(&d, &r) == 0);
+    d = base; d.altitud_final_m = d.altitud_inicial_m + 1.0;
+    VERIFICAR(calcular_reingreso(&d, &r) == 0);
+    d = base; d.masa_kg = NAN;
+    VERIFICAR(calcular_reingreso(&d, &r) == 0);
+    d = base; d.duracion_s = INFINITY;
+    VERIFICAR(calcular_reingreso(&d, &r) == 0);
+    d = base; d.masa_kg = DBL_MAX;
+    VERIFICAR(calcular_reingreso(&d, &r) == 0);
+    ConfigMision c = config_consigna();
+    c.masa_kg = DBL_MAX;
+    VERIFICAR(recorrer(&c).resultado == MISION_ERROR_CALCULO);
+}
+
 int main(void)
 {
+    prueba_reingreso_limites();
     prueba_recorrido_exitoso();
     prueba_angulos();
     prueba_impacto();

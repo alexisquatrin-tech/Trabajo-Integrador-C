@@ -23,7 +23,9 @@ int calcular_reingreso(const DatosReingreso *datos,
         !isfinite(datos->velocidad_final_ms) || datos->velocidad_final_ms < 0.0 ||
         !isfinite(datos->altitud_inicial_m) || datos->altitud_inicial_m < 0.0 ||
         !isfinite(datos->altitud_final_m) || datos->altitud_final_m < 0.0 ||
-        !isfinite(datos->duracion_s) || datos->duracion_s <= 0.0) {
+        !isfinite(datos->duracion_s) || datos->duracion_s <= 0.0 ||
+        datos->velocidad_inicial_ms <= datos->velocidad_final_ms ||
+        datos->altitud_inicial_m <= datos->altitud_final_m) {
         return 0;
     }
 

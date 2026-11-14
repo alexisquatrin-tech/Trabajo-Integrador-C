@@ -28,29 +28,43 @@ static void quitar_espacios_finales(char *cadena)
 }
 
 
-// Lee una linea completa desde teclado.
-static int leer_linea(char *buffer, int tamanio)
+/* Consume la linea completa incluso si contiene NUL o supera el buffer.
+ * El salto de linea no ocupa espacio; EOF tambien puede terminar una linea. */
+int leer_linea_segura(char *buffer, size_t capacidad)
 {
+    size_t longitud = 0;
     int caracter;
+    int estado = 1;
+    int hay_datos = 0;
 
-    if (fgets(buffer, tamanio, stdin) == NULL)
-    {
+    if (buffer == NULL || capacidad == 0) {
         return 0;
     }
-
-    // Verifica si la entrada supera el tamaño del buffer.
-    if (strchr(buffer, '\n') == NULL && !feof(stdin))
-    {
-        while ((caracter = getchar()) != '\n' && caracter != EOF)
-        {
+    while ((caracter = getchar()) != EOF && caracter != '\n') {
+        hay_datos = 1;
+        if (caracter == '\0') {
+            estado = -2;
         }
-
-        return -1;
+        if (longitud < capacidad - 1) {
+            buffer[longitud++] = (char)caracter;
+        } else if (estado != -2) {
+            estado = -1;
+        }
     }
+    buffer[longitud] = '\0';
+    if (ferror(stdin) || (caracter == EOF && !hay_datos)) {
+        return 0;
+    }
+    return estado;
+}
 
-    quitar_espacios_finales(buffer);
-
-    return 1;
+static int leer_linea(char *buffer, int tamanio)
+{
+    int estado = leer_linea_segura(buffer, (size_t)tamanio);
+    if (estado == 1) {
+        quitar_espacios_finales(buffer);
+    }
+    return estado;
 }
 
 
@@ -101,6 +115,12 @@ int leer_entero(const char *mensaje, int minimo,
         if (estado == -1)
         {
             printf("Entrada demasiado larga.\n");
+            continue;
+        }
+
+        if (estado == -2)
+        {
+            printf("Entrada contiene caracteres invalidos.\n");
             continue;
         }
 
@@ -175,6 +195,12 @@ int leer_real(const char *mensaje, double minimo,
             continue;
         }
 
+        if (estado == -2)
+        {
+            printf("Entrada contiene caracteres invalidos.\n");
+            continue;
+        }
+
         if (cadena_vacia(buffer))
         {
             printf("Ingrese un numero real valido.\n");
@@ -240,6 +266,12 @@ int leer_real_positivo(const char *mensaje, double *valor)
         if (estado == -1)
         {
             printf("Entrada demasiado larga.\n");
+            continue;
+        }
+
+        if (estado == -2)
+        {
+            printf("Entrada contiene caracteres invalidos.\n");
             continue;
         }
 

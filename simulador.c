@@ -1,4 +1,5 @@
 #include "simulador.h"
+#include "validaciones.h"
 
 #include <ctype.h>
 #include <math.h>
@@ -230,21 +231,20 @@ static int pedir_continuar(void)
 {
     char linea[64];
     const char *p;
-    int c;
+    int lectura;
 
     while (1) {
         printf("Enter = continuar, 0 = abortar: ");
 
-        if (fgets(linea, sizeof linea, stdin) == NULL) {
-            puts("\nFin de entrada: se aborta la mision.");
+        lectura = leer_linea_segura(linea, sizeof linea);
+        if (lectura == 0) {
+            puts(ferror(stdin) ? "\nError al leer: se aborta la mision." :
+                                "\nFin de entrada: se aborta la mision.");
             return 0;
         }
-
-        if (strchr(linea, '\n') == NULL && !feof(stdin)) {
-            while ((c = getchar()) != '\n' && c != EOF) {
-            }
-
-            puts("Error: entrada demasiado larga.");
+        if (lectura < 0) {
+            puts(lectura == -1 ? "Error: entrada demasiado larga." :
+                                "Error: entrada contiene caracteres invalidos.");
             continue;
         }
 
@@ -359,6 +359,12 @@ int registrar_simulacion(HistorialSimulaciones *historial,
         return 0;
     }
 
+    if (!config_valida(config) || estado->etapa != ETAPA_FINALIZADA ||
+        estado->resultado <= MISION_EN_CURSO ||
+        estado->resultado > MISION_ERROR_CALCULO) {
+        return 0;
+    }
+
     if (historial_lleno(historial)) {
         return 0;
     }
@@ -404,16 +410,23 @@ void mostrar_reporte_historial(const HistorialSimulaciones *historial)
                r->config.masa_kg,
                r->config.angulo_grados,
                r->config.velocidad_entrada_ms);
+        printf("  Parametros : Altitud entrada %.2f m | Paracaidas %.2f m/s a %.2f m\n"
+               "               Frenado %.2f s | Impacto previsto %.2f m/s | Hundimiento %.2f m\n",
+               r->config.altitud_entrada_m, r->config.velocidad_paracaidas_ms,
+               r->config.altitud_paracaidas_m, r->config.duracion_frenado_s,
+               r->config.velocidad_impacto_ms, r->config.hundimiento_m);
         printf("  Resultado : %s\n",
                describir_resultado(r->estado_final.resultado));
 
         if (r->estado_final.reingreso.desaceleracion_g > 0.0) {
-            printf("  Reingreso : Trabajo rozamiento %.2f J | Desaceleracion %.2f g\n",
+            printf("  Reingreso : Trabajo rozamiento %.2f J | Desaceleracion %.4f m/s^2 (%.2f g)\n",
                    r->estado_final.reingreso.trabajo_rozamiento_j,
+                   r->estado_final.reingreso.desaceleracion_ms2,
                    r->estado_final.reingreso.desaceleracion_g);
         }
 
-        if (r->estado_final.amerizaje.energia_impacto_j > 0.0) {
+        if (r->estado_final.resultado == MISION_EXITOSA ||
+            r->estado_final.resultado == MISION_FALLIDA_IMPACTO) {
             printf("  Amerizaje : Vel. impacto %.2f m/s | Energia %.2f J | Fuerza agua %.2f N (%.2f x peso)\n",
                    r->estado_final.velocidad_impacto_ms,
                    r->estado_final.amerizaje.energia_impacto_j,
@@ -469,7 +482,8 @@ void mostrar_comparacion_simulaciones(const HistorialSimulaciones *historial)
             }
         }
 
-        if (r->estado_final.amerizaje.energia_impacto_j > 0.0) {
+        if (r->estado_final.resultado == MISION_EXITOSA ||
+            r->estado_final.resultado == MISION_FALLIDA_IMPACTO) {
             if (menor_impacto == NULL ||
                 r->estado_final.amerizaje.energia_impacto_j <
                 menor_impacto->estado_final.amerizaje.energia_impacto_j) {
@@ -568,10 +582,6 @@ void ejecutar_simulacion_configurada(const ConfigMision *config)
     }
 
     printf("\n%s\n", describir_resultado(estado.resultado));
-
-    if (estado.resultado == MISION_ABORTADA) {
-        puts("Implementados: flujo por eventos");
-    }
 
     if (registrar_simulacion(&historial_global, &configuracion, &estado)) {
         printf("Simulacion guardada en el historial (%zu/%d).\n",

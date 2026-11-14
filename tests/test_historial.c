@@ -25,6 +25,11 @@ static void probar_historial_vacio(void)
     assert(historial_vacio(&h) == 1);
     assert(historial_lleno(&h) == 0);
     assert(h.cantidad == 0);
+    ConfigMision c = config_consigna();
+    EstadoCapsula e;
+    iniciar_estado(&e, &c);
+    assert(registrar_simulacion(&h, &c, &e) == 0);
+    assert(h.cantidad == 0);
 
     mostrar_reporte_historial(&h);
     mostrar_comparacion_simulaciones(&h);

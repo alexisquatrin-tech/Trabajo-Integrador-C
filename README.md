@@ -2,11 +2,13 @@
 
 Trabajo Final Integrador de **Algoritmos y Estructuras de Datos**, Ingeniería en Sistemas de Información, UTN Facultad Regional Resistencia. Programa en C, nativo por consola.
 
-> **Base de desarrollo compartida, no entrega final.** Funcionan el menú, el flujo por eventos de Nico y los cálculos de amerizaje. Hay una implementación provisional de a/b para ejecutar el recorrido completo con datos fijos. Faltan datos personalizados, revisión definitiva de a/b e historial/reportes.
+> **Estado al 14 de noviembre de 2026:** menú, configuración personalizada, flujo por eventos, cálculos e historial/reportes integrados y probados en Linux. La entrega todavía requiere revisión del modelo a/b y completar las verificaciones académicas del equipo. Ver [revisión y pendientes](docs/revision-entrega.md).
 
 ## Equipo y comisión
 
-Comisión: **pendiente de completar**.
+Grupo: **Grupo C 34**.
+
+Comisión: **k1.4**.
 
 | Integrante | Legajo | Responsabilidad confirmada |
 | --- | --- | --- |
@@ -22,7 +24,7 @@ Comisión: **pendiente de completar**.
 | **Quatrin Oliver Alexis Javier (Alexis)** | Amerizaje y ángulo: incisos c/d | `amerizaje.c`, pruebas y explicación física |
 | Julian Nicolas Alvarez Carruega (Nico) | Flujo, estados y eventos | `simulador.c`, contratos en `simulador.h` |
 | Juan Ignacio Pabon | Entradas, validaciones y menú | `validaciones.c/.h` y `main.c` |
-| Merlo Alex Gabriel (Alex) | Arreglo de historial, reportes y compilación | `reportes.c/.h` (por crear), Makefile |
+| Merlo Alex Gabriel (Alex) | Arreglo de historial, reportes y compilación | Historial y reportes en `simulador.c/.h`, Makefile |
 
 Cada integrante programa, prueba y documenta su aporte. README, revisión, Git, video y preparación del coloquio son responsabilidades compartidas.
 
@@ -39,7 +41,7 @@ Orion regresa a la Tierra y debe disipar energía antes de amerizar. Valores de 
 | Rapidez de impacto / hundimiento | 8 m/s / 1,50 m |
 | Ventana segura del ángulo de entrada | 5,5° a 7,0°, inclusive |
 
-Se propone un simulador por eventos: configurar datos, evaluar reingreso, avanzar a paracaídas, evaluar amerizaje y emitir/guardar el reporte. El usuario podrá repetir simulaciones y compararlas. **El recorrido reingreso → paracaídas → amerizaje ya funciona con datos fijos; configuración personalizada e historial están pendientes**; los modelos y reglas definitivos deben acordarse en equipo. No agregar vidas, puntajes o límites estructurales como si fueran requisitos de la cátedra.
+Se propone un simulador por eventos: configurar datos, evaluar reingreso, avanzar a paracaídas, evaluar amerizaje y emitir/guardar el reporte. El usuario podrá repetir simulaciones y compararlas. **El recorrido reingreso → paracaídas → amerizaje funciona con datos de referencia y personalizados; el historial conserva hasta cinco simulaciones por sesión**; los modelos y reglas definitivos deben acordarse en equipo. No agregar vidas, puntajes o límites estructurales como si fueran requisitos de la cátedra.
 
 Modelo actual c/d: movimiento vertical de detención, masa y gravedad constantes, fuerza del agua promediada respecto del desplazamiento. Incluye el trabajo del peso: `Fagua = m*g + m*v²/(2*d)`. Con los datos de referencia: **323.786,67 N**, **3,1769 veces el peso**. El ángulo se clasifica cualitativamente; no se calcula trayectoria ni temperatura y la ventana no garantiza toda la misión. [Fórmulas y límites](docs/parte-alexis.md).
 
@@ -53,8 +55,8 @@ Desde la raíz del repositorio, en Linux o una terminal MSYS2 UCRT64 en Windows:
 make          # Compila build/artemis (artemis.exe en Windows)
 make run      # Ejecuta el menú actual
 make demo     # Ejecuta el recorrido por eventos; Enter avanza, 0 aborta
-make test     # Ejecuta 55 comprobaciones de amerizaje y 56 del flujo
-make check    # Ejecuta las pruebas C y las 11 pruebas de menú con Python
+make test     # Ejecuta 55 comprobaciones de amerizaje, 67 del flujo y pruebas de historial
+make check    # Ejecuta las pruebas C y las 21 pruebas de menú con Python
 make clean    # Elimina los ejecutables generados
 ```
 
@@ -133,7 +135,7 @@ make test                 # Pruebas C del módulo de Alexis
 make check PYTHON=python  # Pruebas C y pruebas automáticas del menú
 ```
 
-Resultados esperados en la base actual: la demo muestra **323786.67 N** y **3.1769**; `make test` informa **55 comprobaciones de amerizaje y 56 de flujo correctas, sin fallos**; las pruebas del menú informan **11 pruebas y OK**. Las cantidades pueden cambiar cuando el equipo amplíe las pruebas. Registrar siempre la salida real, no copiar estos resultados como si se hubieran ejecutado personalmente.
+Resultados esperados en la base actual: la demo muestra **323786.67 N** y **3.1769**; `make test` informa **55 comprobaciones de amerizaje y 67 de flujo correctas, sin fallos**, además de las pruebas de historial; las pruebas del menú informan **21 pruebas y OK**. Las cantidades pueden cambiar cuando el equipo amplíe las pruebas. Registrar siempre la salida real, no copiar estos resultados como si se hubieran ejecutado personalmente.
 
 Para probar manualmente las validaciones del menú, ejecutar `make run`, ingresar `abc`, una línea vacía y `9`: debe informar el error y volver a pedir la opción. Luego ingresar `1`, presionar Enter en cada una de las tres etapas y, al volver al menú, ingresar `0` para salir. Dentro de una etapa, `0` aborta la misión y vuelve al menú. Los datos físicos de la demo siguen siendo fijos; esta prueba no valida todavía su ingreso personalizado.
 
@@ -143,23 +145,28 @@ Estas instrucciones de VS Code/Windows están documentadas, pero no se ejecutaro
 
 ### Funcionamiento actual
 
-1. Elegir `1` para iniciar la simulación con los datos de la consigna y un ángulo de ejemplo de 6°.
-2. Presionar Enter para avanzar por reingreso, paracaídas y amerizaje. Dentro de una etapa, `0` aborta y vuelve al menú.
-3. Elegir `2` para consultar qué está implementado y qué falta.
-4. Elegir `0` en el menú para salir. El fin de entrada también termina sin bucles infinitos.
+1. Opción `1`: misión predeterminada; `2`: parámetros de referencia; `3`: ingreso personalizado de las nueve magnitudes.
+2. En cada etapa, Enter avanza y `0` aborta. Las misiones terminadas o abortadas se registran en memoria.
+3. Opción `4`: historial y reportes con entradas y resultados; `5`: comparación de al menos dos registros.
+4. El historial conserva los primeros cinco registros; al llenarse permite simular pero avisa que no guarda nuevos resultados. Se pierde al cerrar el proceso.
+5. Opción `0`: salir. El fin de entrada también termina sin bucles.
 
-El menú rechaza letras, líneas vacías, números fuera de rango, sufijos y líneas demasiado largas. Aún falta leer y validar las magnitudes físicas ingresadas por el usuario.
+La lectura acepta punto decimal y notación científica; rechaza coma decimal, sufijos, líneas vacías/largas, caracteres NUL, infinitos, NaN y desbordamientos. Una línea de hasta 127 caracteres (63 en pausas) puede terminar con salto de línea o fin de entrada. Masa, duración, hundimiento y altitudes deben ser positivos; la altitud y rapidez de entrada deben superar las de despliegue. Los ángulos de 0° a 90° son válidos como entradas, aunque fuera de [5,5°, 7°] terminan la misión por riesgo. Las velocidades de impacto y de despliegue admiten cero. La rapidez de impacto se ingresa: no se calcula una trayectoria de paracaídas. Las magnitudes finitas cuyos cálculos desbordan terminan con error de cálculo.
+
+Resultados actuales: `make check` pasa 55 comprobaciones de amerizaje, 67 de flujo/reingreso, pruebas de historial y 21 pruebas de menú. Los registros históricos de validación de abajo conservan las cantidades de sus respectivas fechas.
 
 ## Arquitectura
 
 ```text
 main.c                 menú e inicialización; una sola función main
+interfaz.c/.h          guía, parámetros y configuración personalizada
 validaciones.c/.h      lectura segura de la opción del menú; ampliar para datos
 simulador.h            constantes, structs, enum y contratos compartidos
-simulador.c            coordinación por eventos y pausas interactivas
+simulador.c            eventos, pausas, historial y reportes
 amerizaje.c            cálculos y clasificación de Alexis (c/d)
 reingreso.c            cálculos a/b provisionales; revisión por Ezequiel
-reportes.c/.h          PENDIENTE: historial y reportes finales
+CDA.h                  aporte previo de aceleración, no usado por el Makefile
+wroz.h                 cálculo energético usado por reingreso.c
 ```
 
 ```mermaid
@@ -168,7 +175,8 @@ flowchart TD
     M --> S[simulador: coordinación]
     S --> A[amerizaje: c/d implementados]
     S --> R[reingreso: a/b provisionales]
-    S -. pendiente .-> H[historial y reportes]
+    M --> H[consulta y comparación de historial]
+    S --> H
 ```
 
 Las demos y pruebas tienen sus propios `main` en ejecutables separados. No compilar todos los `.c` con un comodín: eso enlazaría varios `main`. El Makefile enumera las fuentes explícitamente. Los binarios de `build/` no se versionan.
@@ -233,3 +241,13 @@ Consultas de esta revisión: «sigamos con mi registro de uso de ia, vamos con l
 | **Corrección de errores de compilación e integración** | Se compartieron capturas de la estructura del repositorio y mensajes de error para identificar por qué fallaba la integración de `validaciones.c`.<br><br>«Dale seguimos entonces».                                                                                      | Se revisaron los archivos involucrados, las declaraciones y definiciones de funciones y la estructura del proyecto. Se realizaron correcciones para evitar conflictos de vinculación y mantener una única función `main()`.                                                                                                                                                     |
 | **Configuración del entorno de desarrollo**            | Se consultó cómo instalar las herramientas necesarias para compilar desde Visual Studio Code en Windows. Durante el proceso se fueron comprobando los comandos de GCC y Make y se consultó cómo resolver el problema de reconocimiento del comando `make` en PowerShell. | Se indicó cómo instalar MSYS2, GCC y Make, configurar el PATH y comprobar las instalaciones. Se identificó que debía utilizarse `mingw32-make` en lugar de `make` desde PowerShell.                                                                                                                                                                                             |
 | **Revisión e integración de los módulos del equipo**   | Se compartieron los archivos `main.c`, `simulador.c`, `simulador.h`, `reingreso.c`, `amerizaje.c` y `validaciones.c` para revisar cómo estaban conectados.<br><br>«¿Qué habría que modificar entonces para que el usuario ingrese valores?»                              | Se analizaron las responsabilidades de cada módulo, las funciones y las estructuras compartidas. Se identificó que la simulación utilizaba los valores de referencia mediante `config_consigna()`. Se propuso agregar una función que permita recibir una estructura `ConfigMision` con valores personalizados. También se revisaron las pruebas automatizadas del repositorio. |
+
+
+### Revisión asistida — 14 de noviembre de 2026
+
+Consulta: «Revisá el repositorio completo según la consigna del trabajo integrador. Ejecutá compilación y pruebas, corregí los problemas necesarios y actualizá la documentación. Preservá los aportes del grupo y avisame qué falta para entregar».
+
+Codex revisó el código y la lista local de requisitos; luego cotejó el documento original «Trabajo Final Integrador C.docx» aportado por el usuario. Integró las consultas del historial ya implementado por el grupo, corrigió reportes de energía cero y controles de reingreso/registro, amplió pruebas y actualizó documentación. No reemplazó los módulos ni atribuyó revisión personal a los estudiantes. Evidencia y pendientes en `docs/revision-entrega.md`.
+
+
+Nueva revisión de `main` solicitada el 14/11/2026: «Revisá la última versión de `main` del repositorio `alexisquatrin-tech/Trabajo-Integrador-C` contra el PDF adjunto». Codex verificó el remoto en `b024e48`, preservó los cambios locales anteriores y cotejó la consigna disponible como DOCX. Reprodujo y corrigió rechazos de líneas de capacidad exacta y aceptación de prefijos con NUL, compartió la lectura segura entre menú y pausas y actualizó el Makefile. Ejecutó compilación estricta, 55 comprobaciones de amerizaje, 67 de flujo/reingreso, pruebas de historial y 21 pruebas de consola, además de la misma suite con AddressSanitizer/UndefinedBehaviorSanitizer y la demo. Todos esos controles pasaron en Linux. Son verificaciones de la herramienta, no de los estudiantes. No se agregaron testimonios de revisión personal ni se modificaron los registros históricos del grupo.

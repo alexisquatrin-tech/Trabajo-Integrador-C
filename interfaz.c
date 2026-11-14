@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <float.h>
 
 #include "interfaz.h"
 #include "validaciones.h"
@@ -97,7 +98,7 @@ int solicitar_configuracion_mision(ConfigMision *config)
 
         if (!leer_real(
                 "Velocidad al desplegar el paracaidas (m/s) [Referencia: 25]: ",
-                0.0, 1000000000.0,
+                0.0, DBL_MAX,
                 &temporal.velocidad_paracaidas_ms)) {
             return 0;
         }
@@ -118,7 +119,7 @@ int solicitar_configuracion_mision(ConfigMision *config)
 
         if (!leer_real(
                 "Velocidad de impacto (m/s) [Referencia: 8]: ",
-                0.0, 1000000000.0,
+                0.0, DBL_MAX,
                 &temporal.velocidad_impacto_ms)) {
             return 0;
         }
@@ -172,6 +173,7 @@ void mostrar_parametros_escenario(void)
     printf("Hundimiento en el agua: %.2f m\n",
            config.hundimiento_m);
 
-    printf("\nPendientes: datos personalizados\n");
+    printf("\nDisponibles: datos personalizados, historial y comparaciones.\n");
+    printf("Modelo simplificado: impacto seguro hasta 8 m/s; no garantiza seguridad estructural.\n");
     printf("========================================\n");
 }

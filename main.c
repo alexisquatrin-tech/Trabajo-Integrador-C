@@ -19,9 +19,11 @@ int main(void)
         printf("1. Iniciar simulacion predeterminada\n");
         printf("2. Consultar parametros del escenario\n");
         printf("3. Iniciar simulacion personalizada\n");
+        printf("4. Consultar historial y reportes\n");
+        printf("5. Comparar simulaciones\n");
         printf("0. Salir\n\n");
 
-        if (!leer_entero("Seleccione una opcion: ", 0, 3, &opcion)) {
+        if (!leer_entero("Seleccione una opcion: ", 0, 5, &opcion)) {
             if (ferror(stdin)) {
                 fprintf(stderr, "\nError al leer la entrada.\n");
                 return EXIT_FAILURE;
@@ -47,6 +49,14 @@ int main(void)
                 } else {
                     printf("\nNo se pudo cargar la configuracion.\n");
                 }
+                break;
+
+            case 4:
+                mostrar_reporte_global();
+                break;
+
+            case 5:
+                mostrar_comparacion_global();
                 break;
 
             case 0:

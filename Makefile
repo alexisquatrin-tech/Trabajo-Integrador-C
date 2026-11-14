@@ -17,7 +17,7 @@ TEST = build/test_alexis$(EXE)
 TEST_FLUJO = build/test_flujo$(EXE)
 TEST_HISTORIAL = build/test_historial$(EXE)
 
-LOGICA = simulador.c amerizaje.c reingreso.c
+LOGICA = simulador.c amerizaje.c reingreso.c validaciones.c
 INTERFAZ = interfaz.c
 
 .PHONY: all run demo test test-historial test-cli check clean
@@ -26,15 +26,15 @@ all: $(APP)
 
 build: ; mkdir -p build
 
-$(APP): main.c $(LOGICA) $(INTERFAZ) validaciones.c simulador.h interfaz.h validaciones.h wroz.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) main.c $(LOGICA) $(INTERFAZ) validaciones.c $(LDFLAGS) $(LDLIBS) -o $@
+$(APP): main.c $(LOGICA) $(INTERFAZ) simulador.h interfaz.h validaciones.h wroz.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) main.c $(LOGICA) $(INTERFAZ) $(LDFLAGS) $(LDLIBS) -o $@
 
-$(DEMO): ejemplos/demo_alexis.c $(LOGICA) simulador.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) ejemplos/demo_alexis.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
+$(DEMO): ejemplos/demo_alexis.c $(LOGICA) simulador.h validaciones.h wroz.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) ejemplos/demo_alexis.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
 
 $(TEST): tests/test_alexis.c amerizaje.c simulador.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) tests/test_alexis.c amerizaje.c $(LDFLAGS) $(LDLIBS) -o $@
 
-$(TEST_FLUJO): tests/test_flujo.c $(LOGICA) simulador.h wroz.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) tests/test_flujo.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
+$(TEST_FLUJO): tests/test_flujo.c $(LOGICA) simulador.h validaciones.h wroz.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) tests/test_flujo.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
 
-$(TEST_HISTORIAL): tests/test_historial.c $(LOGICA) simulador.h wroz.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) tests/test_historial.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
+$(TEST_HISTORIAL): tests/test_historial.c $(LOGICA) simulador.h validaciones.h wroz.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) tests/test_historial.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
 
 run: $(APP) ; ./$(APP)
 

@@ -82,10 +82,10 @@ make demo
 make test
 ```
 
-La demo recorre tres eventos con los datos del enunciado y un ángulo de ejemplo de 6°; Enter avanza y 0 aborta. Las variaciones de ángulo se verifican en las pruebas. Las pruebas verifican valores manuales, balance de energía, proporcionalidad con la masa, efecto de la distancia, límites de la ventana, entradas inválidas y conservación de la salida ante un error. No se reemplazan las pruebas de entrada por consola del futuro módulo de validaciones.
+La demo recorre tres eventos con los datos del enunciado y un ángulo de ejemplo de 6°; Enter avanza y 0 aborta. Las variaciones de ángulo se verifican en las pruebas. Las pruebas verifican valores manuales, balance de energía, proporcionalidad con la masa, efecto de la distancia, límites de la ventana, entradas inválidas y conservación de la salida ante un error. No se reemplazan las pruebas de entrada por consola del módulo de validaciones.
 
-## 5. Integración pendiente del equipo
+## 5. Integración y revisión del equipo
 
-El flujo por eventos ya está integrado con el menú y con una implementación provisional de a/b. Faltan la revisión de a/b, la conexión de datos personalizados, historial y reportes. Ya existe un menú base con lectura segura de enteros. El arreglo de casos de prueba no sustituye el uso de arreglos en el simulador final; se propone el historial de simulaciones para ese requisito. Actualizar el Makefile cuando se agreguen esos archivos, sin enlazar simultáneamente los main de demo, pruebas y programa final.
+El flujo por eventos está integrado con el menú, la entrada personalizada y el historial/reportes. El arreglo de cinco registros de simulación satisface el uso funcional de arreglos. Se conservan los cálculos de Alexis y las firmas compartidas. Los ejecutables de programa, demo y pruebas se enlazan por separado.
 
-El equipo debe completar integrantes y comisión en el README, aportar commits progresivos, revisar las interfaces compartidas y preparar el video y la defensa. Antes de integrar, Alexis debe leer el código, ejecutar los comandos y poder justificar la fórmula, el uso de punteros, los retornos de error y los límites inclusivos.
+Sigue pendiente la revisión definitiva de a/b por Ezequiel y el acuerdo sobre el intervalo de 400 s. Los integrantes ya están registrados; el usuario informó Grupo C 34 y comisión k1.4. Alexis registró pruebas personales en README. Cada integrante debe justificar las fórmulas, los punteros, los retornos de error y los límites inclusivos, además de comprender todo el sistema para la defensa. Ver [revisión de entrega](revision-entrega.md).

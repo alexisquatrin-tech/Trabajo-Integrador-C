@@ -1,6 +1,6 @@
 # Plan de trabajo del grupo
 
-Estado: base compartida. Responsabilidades confirmadas: Ezequiel (Navarro Ezequiel Leandro, legajo 31372), parte 1; Alexis (Quatrin Oliver Alexis Javier, legajo 27880), parte 2; Nico (Julian Nicolas Alvarez Carruega, legajo 29342), parte 3; Ignacio (Juan Ignacio Pabon, legajo 28583), parte 4. Alex (Merlo Alex Gabriel, legajo 24518), distinto de Alexis, realiza la parte 5: historial, reportes y compilación. Ignacio conserva el menú y las validaciones. Los cinco integrantes tienen sus datos y responsabilidades registrados; falta completar la comisión.
+Estado: integración funcional revisada el 14/11/2026; pendientes actuales en [revision-entrega.md](revision-entrega.md). Los puntos siguientes conservan la distribución de responsabilidades; varias tareas ya están implementadas. Responsabilidades confirmadas: Ezequiel (Navarro Ezequiel Leandro, legajo 31372), parte 1; Alexis (Quatrin Oliver Alexis Javier, legajo 27880), parte 2; Nico (Julian Nicolas Alvarez Carruega, legajo 29342), parte 3; Ignacio (Juan Ignacio Pabon, legajo 28583), parte 4. Alex (Merlo Alex Gabriel, legajo 24518), distinto de Alexis, realiza la parte 5: historial, reportes y compilación. Ignacio conserva el menú y las validaciones. Los cinco integrantes tienen sus datos y responsabilidades registrados; pertenecen al Grupo C 34, comisión k1.4, según lo informado por el usuario.
 
 ## 1. Reingreso y frenado — Ezequiel
 
@@ -19,11 +19,11 @@ Terminado cuando funciones, pruebas y explicación estén revisadas e integradas
 
 `amerizaje.c` y su sección de `simulador.h` ya implementados; `tests/test_alexis.c` pasa 55 comprobaciones. Fórmulas y supuestos en `parte-alexis.md`.
 
-Pendiente: revisión personal, acuerdo del modelo físico, conexión con entrada de datos y reportes y prueba dentro del flujo completo. No volver a definir las mismas funciones en `simulador.c`.
+La entrada personalizada, los reportes y las pruebas del flujo completo están integrados. Alexis registró pruebas personales en README; sigue pendiente la comprensión integral para defensa y el acuerdo final del modelo. No volver a definir las mismas funciones en `simulador.c`.
 
 ## 3. Flujo y estados — Nico
 
-El flujo corregido de Nico ya está integrado en `simulador.c`, con datos fijos. Pasan 56 comprobaciones del flujo y 11 pruebas del menú; falta conectar la configuración personalizada y los reportes.
+El flujo corregido de Nico ya está integrado en `simulador.c`, con datos de referencia y personalizados. Pasan 67 comprobaciones del flujo y 16 pruebas del menú; reportes y comparación conectados.
 
 - Proponer estado y etapas: configuración, reingreso, paracaídas, amerizaje y reporte.
 - Permitir avance interactivo por eventos; coordinar cálculo y actualización por punteros.
@@ -35,7 +35,7 @@ Terminado cuando una simulación personalizada recorra etapas coherentes y termi
 
 ## 4. Entradas y navegación — Ignacio Pabon
 
-Ya existen `leer_entero`, `leer_real` y `leer_real_positivo`, y el menú inicia la simulación por eventos. Ver `integracion-flujo.md` para completar la configuración personalizada. Ampliar `validaciones.c/.h` y `main.c`.
+Ya existen `leer_entero`, `leer_real` y `leer_real_positivo`, y el menú inicia la simulación por eventos. La configuración personalizada ya está integrada en `interfaz.c/.h`; ver `integracion-flujo.md`. Mantener `validaciones.c/.h` y `main.c`.
 
 - Agregar lectura segura de reales y opciones/caracteres que realmente necesite la interfaz.
 - Elegir valores de referencia o personalizados, con unidades visibles.
@@ -48,7 +48,7 @@ Terminado cuando el flujo personalizado no se rompe ni entra en bucle ante error
 
 ## 5. Historial, reportes y compilación — Alex (Merlo Alex Gabriel)
 
-Crear `reportes.c/.h` y extender el Makefile existente, coordinando contratos.
+El historial y los reportes ya están implementados en `simulador.c/.h`, con pruebas y targets del Makefile. Se conserva esa organización; no es necesario crear otro módulo para satisfacer la modularización.
 
 - Arreglo acotado de estructuras para resultados de varias simulaciones y contador válido.
 - Definir capacidad y comportamiento cuando se llena, sin escribir fuera del arreglo.
@@ -60,7 +60,7 @@ Terminado cuando los resultados se almacenan, recuperan y muestran correctamente
 
 ## Acuerdos comunes y orden
 
-1. Completar responsables/comisión y acordar interfaces y supuestos físicos.
+1. Mantener los datos del Grupo C 34, comisión k1.4, y acordar interfaces y supuestos físicos.
 2. Revisar e integrar esta base en `main` y abrir ramas por tarea.
 3. Desarrollar cada parte con pruebas y commits reales.
 4. Integrar temprano un recorrido por eventos con todas las partes disponibles.
