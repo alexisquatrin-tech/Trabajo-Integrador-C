@@ -1,6 +1,8 @@
 #ifndef SIMULADOR_H
 #define SIMULADOR_H
 
+#include <stddef.h>
+
 /* Unidades del SI, salvo los angulos, expresados en grados. */
 #define GRAVEDAD_TERRESTRE 9.80
 #define ANGULO_MINIMO_SEGURO 5.5
@@ -127,5 +129,43 @@ void ejecutar_simulacion(void);
 
 /* Simulacion con valores personalizados. */
 void ejecutar_simulacion_configurada(const ConfigMision *config);
+
+/* ------------------------------------------------------------------
+ * Parte 4: Historial acotado de simulaciones y reportes comparativos.
+ * ------------------------------------------------------------------ */
+
+#define CAPACIDAD_HISTORIAL 5
+
+/* Registro individual de una simulacion finalizada. */
+typedef struct {
+    int id;
+    ConfigMision config;
+    EstadoCapsula estado_final;
+} RegistroSimulacion;
+
+/* Contenedor acotado para almacenar el historial. */
+typedef struct {
+    RegistroSimulacion registros[CAPACIDAD_HISTORIAL];
+    size_t cantidad;
+    int siguiente_id;
+} HistorialSimulaciones;
+
+/* Operaciones de gestion del historial. */
+void iniciar_historial(HistorialSimulaciones *historial);
+int historial_vacio(const HistorialSimulaciones *historial);
+int historial_lleno(const HistorialSimulaciones *historial);
+int registrar_simulacion(HistorialSimulaciones *historial,
+                         const ConfigMision *config,
+                         const EstadoCapsula *estado);
+
+/* Operaciones de acceso al historial global de la sesion. */
+void limpiar_historial_global(void);
+const HistorialSimulaciones *obtener_historial_global(void);
+void mostrar_reporte_global(void);
+void mostrar_comparacion_global(void);
+
+/* Generacion de reportes finales y comparaciones. */
+void mostrar_reporte_historial(const HistorialSimulaciones *historial);
+void mostrar_comparacion_simulaciones(const HistorialSimulaciones *historial);
 
 #endif
