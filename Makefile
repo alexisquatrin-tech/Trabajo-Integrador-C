@@ -1,4 +1,3 @@
-.RECIPEPREFIX = >
 CC = gcc
 CFLAGS = -std=c17 -Wall -Wextra -Wpedantic -Werror -O2
 CPPFLAGS = -I.
@@ -24,42 +23,28 @@ INTERFAZ = interfaz.c
 
 all: $(APP)
 
-build:
-> mkdir -p build
+build: ; mkdir -p build
 
-$(APP): main.c $(LOGICA) $(INTERFAZ) validaciones.c simulador.h interfaz.h validaciones.h wroz.h | build
-> $(CC) $(CPPFLAGS) $(CFLAGS) main.c $(LOGICA) $(INTERFAZ) validaciones.c $(LDFLAGS) $(LDLIBS) -o $@
+$(APP): main.c $(LOGICA) $(INTERFAZ) validaciones.c simulador.h interfaz.h validaciones.h wroz.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) main.c $(LOGICA) $(INTERFAZ) validaciones.c $(LDFLAGS) $(LDLIBS) -o $@
 
-$(DEMO): ejemplos/demo_alexis.c $(LOGICA) simulador.h | build
-> $(CC) $(CPPFLAGS) $(CFLAGS) ejemplos/demo_alexis.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
+$(DEMO): ejemplos/demo_alexis.c $(LOGICA) simulador.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) ejemplos/demo_alexis.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
 
-$(TEST): tests/test_alexis.c amerizaje.c simulador.h | build
-> $(CC) $(CPPFLAGS) $(CFLAGS) tests/test_alexis.c amerizaje.c $(LDFLAGS) $(LDLIBS) -o $@
+$(TEST): tests/test_alexis.c amerizaje.c simulador.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) tests/test_alexis.c amerizaje.c $(LDFLAGS) $(LDLIBS) -o $@
 
-$(TEST_FLUJO): tests/test_flujo.c $(LOGICA) simulador.h wroz.h | build
-> $(CC) $(CPPFLAGS) $(CFLAGS) tests/test_flujo.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
+$(TEST_FLUJO): tests/test_flujo.c $(LOGICA) simulador.h wroz.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) tests/test_flujo.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
 
-$(TEST_HISTORIAL): tests/test_historial.c $(LOGICA) simulador.h wroz.h | build
-> $(CC) $(CPPFLAGS) $(CFLAGS) tests/test_historial.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
+$(TEST_HISTORIAL): tests/test_historial.c $(LOGICA) simulador.h wroz.h | build ; $(CC) $(CPPFLAGS) $(CFLAGS) tests/test_historial.c $(LOGICA) $(LDFLAGS) $(LDLIBS) -o $@
 
-run: $(APP)
-> ./$(APP)
+run: $(APP) ; ./$(APP)
 
-demo: $(DEMO)
-> ./$(DEMO)
+demo: $(DEMO) ; ./$(DEMO)
 
-test-historial: $(TEST_HISTORIAL)
-> ./$(TEST_HISTORIAL)
+test-historial: $(TEST_HISTORIAL) ; ./$(TEST_HISTORIAL)
 
-test: $(TEST) $(TEST_FLUJO) $(TEST_HISTORIAL)
-> ./$(TEST)
-> ./$(TEST_FLUJO)
-> ./$(TEST_HISTORIAL)
+test: $(TEST) $(TEST_FLUJO) $(TEST_HISTORIAL) ; ./$(TEST) && ./$(TEST_FLUJO) && ./$(TEST_HISTORIAL)
 
-test-cli: $(APP)
-> $(PYTHON) tests/test_menu.py ./$(APP)
+test-cli: $(APP) ; $(PYTHON) tests/test_menu.py ./$(APP)
 
 check: test test-cli
 
-clean:
-> rm -f build/artemis build/artemis.exe build/demo_alexis build/demo_alexis.exe build/test_alexis build/test_alexis.exe build/test_flujo build/test_flujo.exe build/test_historial build/test_historial.exe
+clean: ; rm -f build/artemis build/artemis.exe build/demo_alexis build/demo_alexis.exe build/test_alexis build/test_alexis.exe build/test_flujo build/test_flujo.exe build/test_historial build/test_historial.exe
